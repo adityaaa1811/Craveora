@@ -1,9 +1,8 @@
+import React from "react";
+import AppRouter from "./routes/AppRouter";
+
 function App() {
-  return (
-    <>
-      <h1>Craveora</h1>
-    </>
-  );
+  return <AppRouter />;
 }
 
 export default App;
