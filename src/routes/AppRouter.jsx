@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Layouts
-import RootLayout from "../layouts/RootLayout";
+import MainLayout from "../components/layout/MainLayout/MainLayout";
 import AuthLayout from "../layouts/AuthLayout";
 
 // Pages
@@ -22,8 +22,8 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Main Application Routes using RootLayout */}
-        <Route element={<RootLayout />}>
+        {/* Main Application Routes using MainLayout */}
+        <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/menu" element={<Menu />} />
           <Route path="/menu/:id" element={<ProductDetails />} />
@@ -40,8 +40,8 @@ const AppRouter = () => {
           <Route path="/register" element={<Register />} />
         </Route>
 
-        {/* Catch-all Route under RootLayout */}
-        <Route element={<RootLayout />}>
+        {/* Catch-all Route under MainLayout */}
+        <Route element={<MainLayout />}>
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
