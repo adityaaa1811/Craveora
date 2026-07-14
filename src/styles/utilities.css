@@ -1,0 +1,270 @@
+/* ==========================================
+   1. LAYOUT UTILITIES
+   ========================================== */
+
+/* Custom Container class with responsive max-widths and margins */
+@utility container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing-4);
+  padding-right: var(--spacing-4);
+  max-width: var(--container-max-2xl);
+  
+  @media (min-width: 640px) {
+    max-width: var(--container-max-sm);
+    padding-left: var(--spacing-6);
+    padding-right: var(--spacing-6);
+  }
+  @media (min-width: 768px) {
+    max-width: var(--container-max-md);
+  }
+  @media (min-width: 1024px) {
+    max-width: var(--container-max-lg);
+  }
+  @media (min-width: 1280px) {
+    max-width: var(--container-max-xl);
+  }
+  @media (min-width: 1440px) {
+    max-width: var(--container-max-2xl);
+  }
+}
+
+/* Page Section padding */
+@utility section {
+  padding-top: var(--spacing-16);
+  padding-bottom: var(--spacing-16);
+  
+  @media (min-width: 768px) {
+    padding-top: var(--spacing-24);
+    padding-bottom: var(--spacing-24);
+  }
+}
+
+/* ==========================================
+   2. GLASSMORPHISM & TEXT UTILITIES
+   ========================================== */
+
+/* Luxury Glassmorphism effect */
+@utility glass {
+  background: rgba(255, 248, 243, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(224, 164, 176, 0.25);
+  box-shadow: 0 8px 32px rgba(124, 1, 22, 0.03);
+}
+
+/* Dark variant of luxury Glassmorphism */
+@utility glass-dark {
+  background: rgba(29, 29, 29, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(224, 164, 176, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Brand Gradient Text */
+@utility text-gradient {
+  background-image: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* ==========================================
+   3. COMPONENTS & CARDS UTILITIES
+   ========================================== */
+
+/* Premium interactive card design */
+@utility card-premium {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  transition: all var(--animate-duration-normal) var(--animate-ease-premium);
+  overflow: hidden;
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--color-secondary);
+  }
+}
+
+/* Luxury card with subtle gold/rose gold borders */
+@utility card-luxury {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-3xl);
+  border: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  transition: all var(--animate-duration-normal) var(--animate-ease-premium);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-3xl);
+    padding: 1px;
+    background: linear-gradient(to bottom right, var(--color-secondary), transparent, var(--color-primary));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.5;
+    transition: opacity var(--animate-duration-normal) var(--animate-ease-premium);
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Core Brand Button (Burgundy primary) */
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary);
+  color: var(--color-background);
+  font-weight: 600;
+  font-family: inherit;
+  font-size: 0.9375rem; /* ~15px */
+  padding: var(--spacing-3) var(--spacing-8);
+  border-radius: var(--radius-full);
+  transition: all var(--animate-duration-fast) var(--animate-ease-premium);
+  box-shadow: 0 4px 14px rgba(124, 1, 22, 0.2);
+  border: 1px solid transparent;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(124, 1, 22, 0.35);
+  }
+  
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(124, 1, 22, 0.15);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* Core Brand Button (Secondary blush outline) */
+@utility btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  padding: calc(var(--spacing-3) - 1px) calc(var(--spacing-8) - 1px);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-secondary);
+  transition: all var(--animate-duration-fast) var(--animate-ease-premium);
+  cursor: pointer;
+  
+  &:hover {
+    background-color: var(--color-secondary-light);
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+}
+
+/* Core Brand Button (Text link) */
+@utility btn-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--color-primary);
+  font-weight: 600;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  padding: var(--spacing-2) var(--spacing-4);
+  transition: color var(--animate-duration-fast) var(--animate-ease-premium);
+  cursor: pointer;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: var(--spacing-4);
+    right: var(--spacing-4);
+    height: 2px;
+    background-color: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--animate-duration-fast) var(--animate-ease-premium);
+  }
+
+  &:hover {
+    color: var(--color-primary-hover);
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* ==========================================
+   4. LAYOUT & FLEX/GRID HELPERS
+   ========================================== */
+
+/* Flex Centering */
+@utility flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Grid Auto-fit columns */
+@utility grid-auto-fit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* Grid Auto-fill columns */
+@utility grid-auto-fill {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+/* Center element block horizontally */
+@utility flex-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================
+   5. SPACING HELPERS
+   ========================================== */
+@utility gap-xs { gap: var(--spacing-2); }
+@utility gap-sm { gap: var(--spacing-4); }
+@utility gap-md { gap: var(--spacing-6); }
+@utility gap-lg { gap: var(--spacing-8); }
+@utility gap-xl { gap: var(--spacing-12); }
+@utility gap-2xl { gap: var(--spacing-16); }

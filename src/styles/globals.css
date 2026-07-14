@@ -1,0 +1,174 @@
+/* ==========================================
+   TAILWIND CSS & DESIGN SYSTEM IMPORTS
+   ========================================== */
+@import "tailwindcss";
+
+@import "./variables.css";
+@import "./animations.css";
+@import "./utilities.css";
+
+/* ==========================================
+   1. CSS RESET & BASICS
+   ========================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Smooth scrolling for anchor links */
+  scroll-behavior: smooth;
+  /* Prevent font resizing after orientation changes on mobile */
+  -webkit-text-size-adjust: 100%;
+  /* Define default font-size at root (16px) */
+  font-size: 16px;
+}
+
+body {
+  /* Set Manrope as primary font */
+  font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  /* Sub-pixel font smoothing */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Elegant line-height and text rendering */
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* ==========================================
+   2. CUSTOM SELECTION STYLE
+   ========================================== */
+::selection {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+}
+
+::-moz-selection {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+}
+
+/* ==========================================
+   3. CUSTOM WEBKIT SCROLLBAR
+   ========================================== */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+  border-left: 1px solid var(--color-border-light);
+}
+
+/* Elegant rounded scrollbar thumb */
+::-webkit-scrollbar-thumb {
+  background: var(--color-secondary);
+  border-radius: var(--radius-full);
+  border: 3px solid var(--color-background);
+  transition: background-color var(--animate-duration-normal) var(--animate-ease-premium);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* ==========================================
+   4. OPTIMIZED IMAGE RENDERING
+   ========================================== */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* ==========================================
+   5. BUTTON STYLING RESET
+   ========================================== */
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+}
+
+/* Clear, accessible keyboard focus rings */
+button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ==========================================
+   6. INPUTS & FORM CONTROLS RESET
+   ========================================== */
+input, textarea, select {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+/* Simple text fields styling foundation */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+textarea,
+select {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-3) var(--spacing-4);
+  background-color: var(--color-surface);
+  transition: border-color var(--animate-duration-fast) var(--animate-ease-premium),
+              box-shadow var(--animate-duration-fast) var(--animate-ease-premium);
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(124, 1, 22, 0.1);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Form label default */
+label {
+  display: inline-block;
+  font-weight: 500;
+  font-size: 0.875rem;
+  margin-bottom: var(--spacing-2);
+  color: var(--color-text-secondary);
+}
+
+/* ==========================================
+   7. ACCESSIBILITY HELPER
+   ========================================== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

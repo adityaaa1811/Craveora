@@ -1,0 +1,180 @@
+@theme {
+  /* ==========================================
+     1. CUSTOM ANIMATIONS & KEYFRAMES
+     ========================================== */
+  --animate-fade-in: fade-in var(--animate-duration-normal) var(--animate-ease-premium) forwards;
+  --animate-slide-up: slide-up var(--animate-duration-normal) var(--animate-ease-premium) forwards;
+  --animate-slide-left: slide-left var(--animate-duration-normal) var(--animate-ease-premium) forwards;
+  --animate-slide-right: slide-right var(--animate-duration-normal) var(--animate-ease-premium) forwards;
+  --animate-scale-in: scale-in var(--animate-duration-normal) var(--animate-ease-premium) forwards;
+  --animate-floating: floating 3s ease-in-out infinite;
+  --animate-pulse-subtle: pulse-subtle 2s ease-in-out infinite;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-left {
+    from {
+      transform: translateX(20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-right {
+    from {
+      transform: translateX(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      transform: scale(0.96);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes floating {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
+  @keyframes pulse-subtle {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.85;
+      transform: scale(1.015);
+    }
+  }
+}
+
+/* ==========================================
+   2. STANDARD CSS ANIMATION CLASSES
+   ========================================== */
+.animate-fade-in {
+  animation: fade-in var(--animate-duration-normal) var(--animate-ease-premium) forwards;
+}
+
+.animate-slide-up {
+  animation: slide-up var(--animate-duration-normal) var(--animate-ease-premium) forwards;
+}
+
+.animate-slide-left {
+  animation: slide-left var(--animate-duration-normal) var(--animate-ease-premium) forwards;
+}
+
+.animate-slide-right {
+  animation: slide-right var(--animate-duration-normal) var(--animate-ease-premium) forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in var(--animate-duration-normal) var(--animate-ease-premium) forwards;
+}
+
+.animate-floating {
+  animation: floating 3s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+/* ==========================================
+   3. PREMIUM HOVER ANIMATIONS
+   ========================================== */
+/* Smooth hover lift and shadow transition */
+.hover-lift {
+  transition: transform var(--animate-duration-fast) var(--animate-ease-premium), 
+              box-shadow var(--animate-duration-fast) var(--animate-ease-premium), 
+              border-color var(--animate-duration-fast) var(--animate-ease-premium);
+}
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Elegant glow hover effect using brand colors */
+.hover-glow {
+  transition: box-shadow var(--animate-duration-fast) var(--animate-ease-premium), 
+              border-color var(--animate-duration-fast) var(--animate-ease-premium);
+}
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(224, 164, 176, 0.4);
+  border-color: var(--color-secondary);
+}
+
+/* Premium scale zoom effect */
+.hover-scale {
+  transition: transform var(--animate-duration-fast) var(--animate-ease-premium);
+}
+.hover-scale:hover {
+  transform: scale(1.03);
+}
+
+/* Interactive card border shine transition */
+.hover-border {
+  transition: border-color var(--animate-duration-fast) var(--animate-ease-premium);
+}
+.hover-border:hover {
+  border-color: var(--color-primary);
+}
+
+/* ==========================================
+   4. PAGE TRANSITIONS (Framer Motion / React Router compatible)
+   ========================================== */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity var(--animate-duration-normal) var(--animate-ease-premium), 
+              transform var(--animate-duration-normal) var(--animate-ease-premium);
+}
+.page-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity var(--animate-duration-normal) var(--animate-ease-premium), 
+              transform var(--animate-duration-normal) var(--animate-ease-premium);
+}
