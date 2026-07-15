@@ -1,6 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import Spinner from "../Spinner";
+
+const MotionLink = motion(Link);
 
 export const Button = ({
   children,
@@ -11,6 +14,7 @@ export const Button = ({
   className = "",
   type = "button",
   onClick,
+  to,
   ...props
 }) => {
   const baseClasses =
@@ -35,6 +39,21 @@ export const Button = ({
   // Resolve layout size for icon variants
   const resolvedSizeClass = variant === "icon" ? "" : sizeClasses[size];
 
+  if (to) {
+    return (
+      <MotionLink
+        to={to}
+        whileTap={!disabled && !isLoading ? { scale: 0.96 } : undefined}
+        whileHover={!disabled && !isLoading ? { scale: 1.02 } : undefined}
+        aria-disabled={disabled || isLoading}
+        className={`${baseClasses} ${variantClasses[variant]} ${resolvedSizeClass} ${className}`}
+        {...props}
+      >
+        {children}
+      </MotionLink>
+    );
+  }
+
   return (
     <motion.button
       whileTap={!disabled && !isLoading ? { scale: 0.96 } : undefined}
@@ -42,6 +61,8 @@ export const Button = ({
       type={type}
       disabled={disabled || isLoading}
       onClick={onClick}
+      aria-busy={isLoading}
+      aria-disabled={disabled || isLoading}
       className={`${baseClasses} ${variantClasses[variant]} ${resolvedSizeClass} ${className}`}
       {...props}
     >

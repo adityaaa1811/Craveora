@@ -1,29 +1,253 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useState, useEffect, useMemo } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Heart, ShoppingBag, Menu, Search, X } from "lucide-react";
+import { useAppSelector } from "../../../store/hooks";
+import { selectCartTotalQuantity } from "../../../store/slices/cartSlice";
+import { selectWishlistItems } from "../../../store/slices/wishlistSlice";
 import { navigationLinks } from "../../../constants/navigation";
+import { Avatar, Drawer, Modal } from "../../ui";
+import BrandLogo from "./BrandLogo";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+export const Navbar = () => {
+  const location = useLocation();
+  
+  // Scrolled shadow states
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Redux selects
+  const cartQuantity = useAppSelector(selectCartTotalQuantity);
+  const wishlistItems = useAppSelector(selectWishlistItems);
+  const wishlistCount = wishlistItems.length;
+
+  // Track scrolled height to toggle shadows
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 15);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Guarantee mobile menu drawer closes on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  // Memoize links to prevent unnecessary rebuilds
+  const renderLinks = useMemo(() => {
+    return navigationLinks.map((link) => (
+      <NavLink
+        key={link.path}
+        to={link.path}
+        className={({ isActive }) =>
+          `relative py-2 text-xs md:text-sm font-bold tracking-wide transition-colors focus:outline-none focus:text-primary rounded-md px-1 select-none ${
+            isActive ? "text-primary" : "text-text-secondary hover:text-primary"
+          }`
+        }
+      >
+        {({ isActive }) => (
+          <>
+            <span>{link.label}</span>
+            {isActive && (
+              <motion.div
+                layoutId="activeNavbarUnderline"
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary rounded-full"
+                transition={{ type: "spring", stiffness: 380, damping: 30 }}
+              />
+            )}
+          </>
+        )}
+      </NavLink>
+    ));
+  }, []);
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    setIsSearchOpen(false);
+    setSearchQuery("");
+  };
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
-          {/* Brand Placeholder */}
-          <div className="flex-shrink-0">
-            <Link to="/" className="text-xl font-bold">
-              Craveora
-            </Link>
-          </div>
+    <>
+      <nav
+        className={`sticky top-0 z-50 w-full transition-all duration-300 select-none ${
+          isScrolled
+            ? "bg-surface/85 backdrop-blur-md shadow-md border-b border-border/20 py-3"
+            : "bg-surface/80 backdrop-blur-md border-b border-border/10 py-5"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-10 items-center">
+            
+            {/* Left: Brand Logo */}
+            <div className="flex-shrink-0">
+              <BrandLogo />
+            </div>
 
-          {/* Desktop Navigation Links */}
-          <div className="hidden md:flex space-x-8">
+            {/* Center: Desktop Navigation Links */}
+            <div className="hidden md:flex space-x-8 items-center">
+              {renderLinks}
+            </div>
+
+            {/* Right: Icon Utilities */}
+            <div className="hidden md:flex items-center gap-5">
+              
+              {/* Search Toggle */}
+              <button
+                type="button"
+                onClick={() => setIsSearchOpen(true)}
+                className="p-2 text-text-secondary hover:text-primary hover:bg-neutral-50 transition-all rounded-full cursor-pointer focus:ring-2 focus:ring-primary/20 outline-none"
+                aria-label="Search Catalog"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+
+              {/* Wishlist badge */}
+              <Link
+                to="/profile"
+                className="relative p-2 text-text-secondary hover:text-primary hover:bg-neutral-50 transition-all rounded-full cursor-pointer focus:ring-2 focus:ring-primary/20 outline-none"
+                aria-label="Wishlist items"
+              >
+                <Heart className="w-5 h-5" />
+                {wishlistCount > 0 && (
+                  <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[8px] font-black text-white ring-2 ring-surface">
+                    {wishlistCount}
+                  </span>
+                )}
+              </Link>
+
+              {/* Cart badge */}
+              <Link
+                to="/cart"
+                className="relative p-2 text-text-secondary hover:text-primary hover:bg-neutral-50 transition-all rounded-full cursor-pointer focus:ring-2 focus:ring-primary/20 outline-none"
+                aria-label="Gourmet bag items"
+              >
+                <ShoppingBag className="w-5 h-5" />
+                {cartQuantity > 0 && (
+                  <span className="absolute top-1.5 right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[8px] font-black text-white ring-2 ring-surface">
+                    {cartQuantity}
+                  </span>
+                )}
+              </Link>
+
+              {/* Profile Avatar */}
+              <Link
+                to="/profile"
+                className="ml-1 cursor-pointer focus:ring-2 focus:ring-primary/20 rounded-full outline-none"
+                aria-label="View account settings"
+              >
+                <Avatar name="Aditya Mishra" size="sm" />
+              </Link>
+            </div>
+
+            {/* Mobile Actions Hamburger */}
+            <div className="flex md:hidden items-center gap-4">
+              <button
+                type="button"
+                onClick={() => setIsSearchOpen(true)}
+                className="p-1.5 text-text-secondary hover:text-primary rounded-full cursor-pointer focus:ring-2 focus:ring-primary/20"
+                aria-label="Search"
+              >
+                <Search className="w-5 h-5" />
+              </button>
+
+              <Link
+                to="/cart"
+                className="relative p-1.5 text-text-secondary hover:text-primary rounded-full focus:ring-2 focus:ring-primary/20"
+                aria-label="Cart"
+              >
+                <ShoppingBag className="w-5.5 h-5.5" />
+                {cartQuantity > 0 && (
+                  <span className="absolute top-1 right-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[8px] font-black text-white ring-2 ring-surface">
+                    {cartQuantity}
+                  </span>
+                )}
+              </Link>
+
+              <button
+                onClick={() => setIsMobileMenuOpen(true)}
+                type="button"
+                className="p-1.5 text-text-secondary hover:text-primary rounded-full transition-colors focus:outline-none cursor-pointer focus:ring-2 focus:ring-primary/20"
+                aria-label="Open menu drawer"
+              >
+                <Menu className="w-6 h-6" />
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </nav>
+
+      {/* Global Search Dialog Modal */}
+      <Modal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)}>
+        <form onSubmit={handleSearchSubmit} className="flex flex-col gap-4 p-4 select-none">
+          <div className="flex items-center justify-between pb-2 border-b border-border-light/80">
+            <h3 className="text-sm font-extrabold text-text-primary tracking-tight">
+              Search Gourmet Catalog
+            </h3>
+            <button
+              type="button"
+              onClick={() => setIsSearchOpen(false)}
+              className="p-1 rounded-full text-text-muted hover:bg-neutral-100 hover:text-primary transition-all cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search for dishes, pastries, or elixirs..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-3 text-xs border border-border rounded-full bg-surface text-text-primary focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
+              autoFocus
+            />
+            <Search className="w-4 h-4 text-text-muted absolute left-4 top-3.5" />
+          </div>
+          <div className="flex flex-col gap-2 mt-2">
+            <span className="text-[10px] text-text-muted font-bold uppercase tracking-wider pl-1">
+              Popular Searches
+            </span>
+            <div className="flex flex-wrap gap-2">
+              {["Steak", "Pastries", "Lobster", "Elixirs"].map((tag) => (
+                <button
+                  key={tag}
+                  type="button"
+                  onClick={() => setSearchQuery(tag)}
+                  className="px-3 py-1.5 text-2xs font-semibold text-text-secondary border border-border rounded-full hover:bg-primary-light hover:text-primary transition-colors cursor-pointer"
+                >
+                  {tag}
+                </button>
+              ))}
+            </div>
+          </div>
+        </form>
+      </Modal>
+
+      {/* Mobile Menu Slide Drawer */}
+      <Drawer
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+        placement="right"
+        title="Craveora Menu"
+      >
+        <div className="flex flex-col h-full justify-between py-2 select-none">
+          <div className="flex flex-col gap-4">
             {navigationLinks.map((link) => (
               <NavLink
                 key={link.path}
                 to={link.path}
+                onClick={() => setIsMobileMenuOpen(false)}
                 className={({ isActive }) =>
-                  `text-sm font-medium ${isActive ? "text-black font-semibold" : "text-gray-500 hover:text-black"}`
+                  `flex items-center px-4 py-3 rounded-2xl text-base font-bold tracking-wide transition-all ${
+                    isActive
+                      ? "bg-primary-light text-primary"
+                      : "text-text-secondary hover:bg-neutral-50 hover:text-primary"
+                  }`
                 }
               >
                 {link.label}
@@ -31,61 +255,28 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Mobile Menu Toggle Button */}
-          <div className="flex md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              type="button"
-              className="text-gray-500 hover:text-black focus:outline-none"
-              aria-label="Toggle menu"
+          <div className="border-t border-border-light pt-6 flex flex-col gap-4 mt-auto">
+            <Link
+              to="/profile"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 text-text-secondary hover:text-primary font-bold text-sm"
             >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {isOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
-            </button>
+              <Heart className="w-5 h-5" />
+              <span>Wishlist ({wishlistCount})</span>
+            </Link>
+
+            <Link
+              to="/profile"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 text-text-secondary hover:text-primary font-bold text-sm"
+            >
+              <Avatar name="Aditya Mishra" size="sm" />
+              <span>My Profile Settings</span>
+            </Link>
           </div>
         </div>
-      </div>
-
-      {/* Mobile Menu Placeholder */}
-      {isOpen && (
-        <div className="md:hidden border-t border-gray-200 bg-white px-2 pt-2 pb-3 space-y-1">
-          {navigationLinks.map((link) => (
-            <NavLink
-              key={link.path}
-              to={link.path}
-              onClick={() => setIsOpen(false)}
-              className={({ isActive }) =>
-                `block px-3 py-2 rounded-md text-base font-medium ${
-                  isActive ? "bg-gray-100 text-black font-semibold" : "text-gray-500 hover:bg-gray-50 hover:text-black"
-                }`
-              }
-            >
-              {link.label}
-            </NavLink>
-          ))}
-        </div>
-      )}
-    </nav>
+      </Drawer>
+    </>
   );
 };
 

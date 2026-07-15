@@ -101,5 +101,125 @@ export const products = [
     image: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=800",
     badge: "Limited",
     category: "beverages"
+  },
+  {
+    id: "p11",
+    title: "Caviar Blinis",
+    description: "House-made warm blinis topped with premium Osetra caviar, crème fraîche, and finely chopped chives.",
+    price: 48.00,
+    rating: 4.95,
+    image: "https://images.unsplash.com/photo-1534482421-64566f976cfa?auto=format&fit=crop&q=80&w=800",
+    badge: "Exclusive",
+    category: "starters"
+  },
+  {
+    id: "p12",
+    title: "Wild Mushroom Velouté",
+    description: "Creamy puréed seasonal wild forest mushrooms, drizzled with truffle oil and garnished with crispy sage.",
+    price: 14.00,
+    rating: 4.75,
+    image: "https://images.unsplash.com/photo-1547592165-e1d17fed6005?auto=format&fit=crop&q=80&w=800",
+    badge: "Seasonal",
+    category: "starters"
+  },
+  {
+    id: "p13",
+    title: "Duck Confit",
+    description: "Slow-cooked crispy duck leg served over buttered parsnip purée with a sweet cherry reduction.",
+    price: 38.00,
+    rating: 4.85,
+    image: "https://images.unsplash.com/photo-1514516345957-556ca7d90a29?auto=format&fit=crop&q=80&w=800",
+    badge: "Chef's Choice",
+    category: "mains"
+  },
+  {
+    id: "p14",
+    title: "Herb-Crusted Rack of Lamb",
+    description: "Premium grass-fed rack of lamb with a Dijon herb crust, roasted to a tender medium-rare, served with mint jus.",
+    price: 46.00,
+    rating: 4.9,
+    image: "https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&q=80&w=800",
+    badge: "Best Seller",
+    category: "mains"
+  },
+  {
+    id: "p15",
+    title: "Lobster Tail Tagliatelle",
+    description: "Handmade egg tagliatelle tossed in a rich butter lobster sauce, topped with a butter-poached Maine lobster tail.",
+    price: 52.00,
+    rating: 4.95,
+    image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&q=80&w=800",
+    badge: "New",
+    category: "specials"
+  },
+  {
+    id: "p16",
+    title: "Truffle Beef Wellington",
+    description: "Premium beef tenderloin wrapped in mushroom duxelles, parma ham, and puff pastry, baked golden with truffle shavings.",
+    price: 72.00,
+    rating: 5.0,
+    image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800",
+    badge: "Exclusive",
+    category: "specials"
+  },
+  {
+    id: "p17",
+    title: "Black Truffle Fries",
+    description: "Double-cooked russet potato fries tossed in truffle salt, parmigiano cheese, and fresh micro parsley.",
+    price: 12.00,
+    rating: 4.6,
+    image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&q=80&w=800",
+    badge: "Popular",
+    category: "starters"
+  },
+  {
+    id: "p18",
+    title: "Grand Marnier Soufflé",
+    description: "Classic French light airy soufflé flavored with orange liqueur, served warm with crumbles.",
+    price: 16.00,
+    rating: 4.8,
+    image: "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&q=80&w=800",
+    badge: "Chef's Choice",
+    category: "desserts"
+  },
+  {
+    id: "p19",
+    title: "Vanilla Crème Brûlée",
+    description: "Rich custard base infused with Madagascan vanilla bean pod, topped with a layer of hardened caramelized sugar.",
+    price: 13.00,
+    rating: 4.85,
+    image: "https://images.unsplash.com/photo-1470324161839-ce2bb6fa6bc3?auto=format&fit=crop&q=80&w=800",
+    badge: "Best Seller",
+    category: "desserts"
+  },
+  {
+    id: "p20",
+    title: "Earl Grey Lavender Tea",
+    description: "Brewed black tea leaves scented with bergamot oil, infused with fresh culinary lavender blossoms.",
+    price: 9.00,
+    rating: 4.7,
+    image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=800",
+    badge: "New",
+    category: "beverages"
+  },
+  {
+    id: "p21",
+    title: "Champagne Royal",
+    description: "Flute of premium French champagne infused with house-made organic wild blackberry syrup.",
+    price: 22.00,
+    rating: 4.9,
+    image: "https://images.unsplash.com/photo-1594487981504-20ed6bc294a8?auto=format&fit=crop&q=80&w=800",
+    badge: "Exclusive",
+    category: "beverages"
+  },
+  {
+    id: "p22",
+    title: "Espresso Martini",
+    description: "Chilled vodka, freshly pulled organic espresso shot, Kahlúa coffee liqueur, garnished with three coffee beans.",
+    price: 16.00,
+    rating: 4.8,
+    image: "https://images.unsplash.com/photo-1545696911-c436a55b97a0?auto=format&fit=crop&q=80&w=800",
+    badge: "Popular",
+    category: "beverages"
   }
 ];

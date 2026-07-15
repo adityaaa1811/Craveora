@@ -1,27 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
+import { toast } from "react-hot-toast";
+import { Button } from "../../ui";
 
 /**
  * Newsletter Section
  * Integrates an elegant form structure offering subscription to the brand newsletter.
  */
-const Newsletter = () => {
+export const Newsletter = () => {
+  const [email, setEmail] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email) return;
+    toast.success("Welcome to the club! Check your inbox for gourmet updates.");
+    setEmail("");
+  };
+
   return (
-    <section id="newsletter" className="w-full py-16 md:py-24 border-t border-gray-100">
-      <div className="max-w-4xl mx-auto px-4 text-center">
+    <section
+      id="newsletter"
+      className="w-full py-20 md:py-28 border-t border-border/30 bg-cover bg-center select-none relative"
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(255, 248, 243, 0.93), rgba(255, 248, 243, 0.93)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop')"
+      }}
+    >
+      <div className="max-w-4xl mx-auto px-4 text-center relative z-10">
+        
         {/* Section Header */}
-        <span className="text-xs uppercase tracking-widest font-semibold block text-gray-500 mb-2">
+        <span className="text-2xs uppercase tracking-widest font-extrabold block text-primary mb-2">
           Gourmet Insights
         </span>
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 mb-4">
+        <h2 className="text-3xl md:text-4xl font-black tracking-tight text-text-primary mb-4">
           Join The Craveora Club
         </h2>
-        <p className="text-sm text-gray-600 mb-8 max-w-lg mx-auto">
+        <p className="text-xs md:text-sm text-text-secondary mb-8 max-w-lg mx-auto leading-relaxed">
           Subscribe to receive exclusive seasonal menu drops, chef insights, secret recipes, and priority private event bookings.
         </p>
 
-        {/* Subscription Form Structure (No business logic) */}
+        {/* Subscription Form */}
         <form
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={handleSubmit}
           className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
         >
           <div className="flex-grow">
@@ -33,15 +52,18 @@ const Newsletter = () => {
               id="newsletter-email"
               placeholder="Enter your email address"
               required
-              className="w-full px-4 py-3 border border-gray-300 focus:outline-none focus:border-black text-sm"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-5 py-3.5 text-xs border border-border rounded-full bg-surface/90 text-text-primary placeholder-text-muted focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all shadow-2xs"
+              autoComplete="email"
             />
           </div>
-          <button
+          <Button
             type="submit"
-            className="px-6 py-3 border border-black bg-black text-white hover:bg-white hover:text-black font-semibold text-sm transition-colors text-center"
+            className="px-8 py-3.5 rounded-full flex justify-center shrink-0 shadow"
           >
             Subscribe
-          </button>
+          </Button>
         </form>
       </div>
     </section>

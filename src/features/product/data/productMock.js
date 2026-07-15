@@ -440,6 +440,482 @@ export const productMock = {
         date: "2026-06-29"
       }
     ]
+  },
+  p11: {
+    id: "p11",
+    title: "Caviar Blinis",
+    description: "Indulge in a classic Russian luxury. House-made warm blinis topped with premium Osetra caviar, rich crème fraîche, and finely chopped micro chives. Perfect starting bite for a grand dinner.",
+    price: 48.00,
+    rating: 4.95,
+    reviewCount: 39,
+    image: "https://images.unsplash.com/photo-1534482421-64566f976cfa?auto=format&fit=crop&q=80&w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1534482421-64566f976cfa?auto=format&fit=crop&q=80&w=800"
+    ],
+    badge: "Exclusive",
+    category: "starters",
+    ingredients: [
+      "Premium Osetra Caviar",
+      "Warm Blinis",
+      "Crème Fraîche",
+      "Chives"
+    ],
+    nutrition: {
+      calories: "280 kcal",
+      fat: "14g",
+      protein: "12g",
+      carbs: "18g"
+    },
+    deliveryInfo: {
+      prepTime: "8-10 min",
+      availability: "In Stock",
+      estimatedDelivery: "20-30 min"
+    },
+    reviews: [
+      {
+        id: "r1",
+        userName: "James Bond",
+        rating: 5,
+        comment: "Exceptional caviar, perfectly chilled and presented.",
+        date: "2026-07-07"
+      }
+    ]
+  },
+  p12: {
+    id: "p12",
+    title: "Wild Mushroom Velouté",
+    description: "Warm and earthy. Puréed seasonal wild forest mushrooms, enriched with fresh organic cream, drizzled with white truffle oil, and topped with crispy sage leaves.",
+    price: 14.00,
+    rating: 4.75,
+    reviewCount: 63,
+    image: "https://images.unsplash.com/photo-1547592165-e1d17fed6005?auto=format&fit=crop&q=80&w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1547592165-e1d17fed6005?auto=format&fit=crop&q=80&w=800"
+    ],
+    badge: "Seasonal",
+    category: "starters",
+    ingredients: [
+      "Porcini & Chanterelle Mushrooms",
+      "Organic Heavy Cream",
+      "White Truffle Oil",
+      "Crispy Sage"
+    ],
+    nutrition: {
+      calories: "320 kcal",
+      fat: "26g",
+      protein: "6g",
+      carbs: "14g"
+    },
+    deliveryInfo: {
+      prepTime: "10-12 min",
+      availability: "In Stock",
+      estimatedDelivery: "20-30 min"
+    },
+    reviews: [
+      {
+        id: "r1",
+        userName: "Alice Cooper",
+        rating: 4.8,
+        comment: "Rich mushroom flavor, feels extremely cozy and gourmet.",
+        date: "2026-07-05"
+      }
+    ]
+  },
+  p13: {
+    id: "p13",
+    title: "Duck Confit",
+    description: "Classic gascon delicacy. Slow-cooked duck leg in its own fat until fall-apart tender, then roasted until skin is perfectly crisp. Served over buttery parsnip purée and sweet dark cherry glaze.",
+    price: 38.00,
+    rating: 4.85,
+    reviewCount: 94,
+    image: "https://images.unsplash.com/photo-1514516345957-556ca7d90a29?auto=format&fit=crop&q=80&w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1514516345957-556ca7d90a29?auto=format&fit=crop&q=80&w=800"
+    ],
+    badge: "Chef's Choice",
+    category: "mains",
+    ingredients: [
+      "Duck Leg",
+      "Duck Fat",
+      "Parsnip Purée",
+      "Dark Cherry Glaze"
+    ],
+    nutrition: {
+      calories: "690 kcal",
+      fat: "48g",
+      protein: "38g",
+      carbs: "24g"
+    },
+    deliveryInfo: {
+      prepTime: "20-22 min",
+      availability: "In Stock",
+      estimatedDelivery: "30-40 min"
+    },
+    reviews: [
+      {
+        id: "r1",
+        userName: "Gaston Leroux",
+        rating: 5,
+        comment: "Perfect crisp on the skin, duck was extremely tender.",
+        date: "2026-07-02"
+      }
+    ]
+  },
+  p14: {
+    id: "p14",
+    title: "Herb-Crusted Rack of Lamb",
+    description: "A tender feast. Premium grass-fed rack of lamb with a roasted Dijon mustard and aromatic fresh herb crust. Roasted to medium-rare and served with roasted garlic baby potatoes and rich mint jus.",
+    price: 46.00,
+    rating: 4.9,
+    reviewCount: 145,
+    image: "https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&q=80&w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&q=80&w=800"
+    ],
+    badge: "Best Seller",
+    category: "mains",
+    ingredients: [
+      "Rack of Lamb",
+      "Dijon Mustard",
+      "Fresh Rosemary & Thyme Crumbs",
+      "Garlic Mint Jus"
+    ],
+    nutrition: {
+      calories: "780 kcal",
+      fat: "52g",
+      protein: "48g",
+      carbs: "10g"
+    },
+    deliveryInfo: {
+      prepTime: "22-25 min",
+      availability: "In Stock",
+      estimatedDelivery: "35-45 min"
+    },
+    reviews: [
+      {
+        id: "r1",
+        userName: "Gordon R.",
+        rating: 5,
+        comment: "Superb pink center, crust is beautiful and seasoned beautifully.",
+        date: "2026-07-09"
+      }
+    ]
+  },
+  p15: {
+    id: "p15",
+    title: "Lobster Tail Tagliatelle",
+    description: "An elegant seafood pairing. Handmade egg tagliatelle pasta tossed in a velvety, reduction sauce of lobster broth and butter, topped with a butter-poached Maine lobster tail.",
+    price: 52.00,
+    rating: 4.95,
+    reviewCount: 110,
+    image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&q=80&w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&q=80&w=800"
+    ],
+    badge: "New",
+    category: "specials",
+    ingredients: [
+      "Maine Lobster Tail",
+      "Egg Tagliatelle Pasta",
+      "Lobster Butter reduction",
+      "Fresh Basil"
+    ],
+    nutrition: {
+      calories: "670 kcal",
+      fat: "32g",
+      protein: "39g",
+      carbs: "54g"
+    },
+    deliveryInfo: {
+      prepTime: "18-20 min",
+      availability: "In Stock",
+      estimatedDelivery: "30-40 min"
+    },
+    reviews: [
+      {
+        id: "r1",
+        userName: "Marcella Hazan",
+        rating: 5,
+        comment: "Tagliatelle had perfect bite, sauce is velvety and coats the pasta beautifully.",
+        date: "2026-07-11"
+      }
+    ]
+  },
+  p16: {
+    id: "p16",
+    title: "Truffle Beef Wellington",
+    description: "The gold standard of dinners. Center-cut beef tenderloin seared and coated in a truffle mushroom duxelles and parma ham, wrapped in puff pastry and baked golden. Served with bordelaise sauce.",
+    price: 72.00,
+    rating: 5.0,
+    reviewCount: 180,
+    image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800"
+    ],
+    badge: "Exclusive",
+    category: "specials",
+    ingredients: [
+      "Beef Tenderloin",
+      "Truffle Mushroom Duxelles",
+      "Parma Ham",
+      "Puff Pastry Shell"
+    ],
+    nutrition: {
+      calories: "850 kcal",
+      fat: "49g",
+      protein: "54g",
+      carbs: "36g"
+    },
+    deliveryInfo: {
+      prepTime: "25-30 min",
+      availability: "Exclusive",
+      estimatedDelivery: "40-50 min"
+    },
+    reviews: [
+      {
+        id: "r1",
+        userName: "Charles Spencer",
+        rating: 5,
+        comment: "Absolutely outstanding. Puff pastry was crisp, meat was perfectly rare. Extraordinary delivery.",
+        date: "2026-07-13"
+      }
+    ]
+  },
+  p17: {
+    id: "p17",
+    title: "Black Truffle Fries",
+    description: "Gourmet fries. Double-cooked russet potatoes tossed in aromatic black truffle oil, aged Parmigiano-Reggiano, and chopped micro parsley.",
+    price: 12.00,
+    rating: 4.6,
+    reviewCount: 198,
+    image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&q=80&w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&q=80&w=800"
+    ],
+    badge: "Popular",
+    category: "starters",
+    ingredients: [
+      "Russet Potatoes",
+      "Truffle Oil",
+      "Parmigiano-Reggiano",
+      "Parsley"
+    ],
+    nutrition: {
+      calories: "340 kcal",
+      fat: "18g",
+      protein: "5g",
+      carbs: "42g"
+    },
+    deliveryInfo: {
+      prepTime: "5-8 min",
+      availability: "In Stock",
+      estimatedDelivery: "15-25 min"
+    },
+    reviews: [
+      {
+        id: "r1",
+        userName: "Toby Maguire",
+        rating: 4.6,
+        comment: "Crispy and perfect amount of truffle oil.",
+        date: "2026-07-01"
+      }
+    ]
+  },
+  p18: {
+    id: "p18",
+    title: "Grand Marnier Soufflé",
+    description: "An elegant French classic. A warm, puffed soufflé flavored with orange Grand Marnier liqueur, served straight from the oven with a dusting of vanilla bean powder.",
+    price: 16.00,
+    rating: 4.8,
+    reviewCount: 78,
+    image: "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&q=80&w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&q=80&w=800"
+    ],
+    badge: "Chef's Choice",
+    category: "desserts",
+    ingredients: [
+      "Grand Marnier Liqueur",
+      "Egg Whites & Sugar",
+      "Vanilla Bean Powder",
+      "Orange Zest"
+    ],
+    nutrition: {
+      calories: "290 kcal",
+      fat: "8g",
+      protein: "6g",
+      carbs: "38g"
+    },
+    deliveryInfo: {
+      prepTime: "12-15 min",
+      availability: "In Stock",
+      estimatedDelivery: "25-35 min"
+    },
+    reviews: [
+      {
+        id: "r1",
+        userName: "Julia Child",
+        rating: 5,
+        comment: "Excellent rise and structure. Grand Marnier flavor is sublime.",
+        date: "2026-07-06"
+      }
+    ]
+  },
+  p19: {
+    id: "p19",
+    title: "Vanilla Crème Brûlée",
+    description: "Classic French indulgence. Custard infused with Madagascar vanilla beans, topped with a hard crack layer of hand-torched sugar.",
+    price: 13.00,
+    rating: 4.85,
+    reviewCount: 167,
+    image: "https://images.unsplash.com/photo-1470324161839-ce2bb6fa6bc3?auto=format&fit=crop&q=80&w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1470324161839-ce2bb6fa6bc3?auto=format&fit=crop&q=80&w=800"
+    ],
+    badge: "Best Seller",
+    category: "desserts",
+    ingredients: [
+      "Madagascan Vanilla Beans",
+      "Heavy Egg Custard",
+      "Caramelized Sugar"
+    ],
+    nutrition: {
+      calories: "380 kcal",
+      fat: "22g",
+      protein: "5g",
+      carbs: "28g"
+    },
+    deliveryInfo: {
+      prepTime: "5 min",
+      availability: "In Stock",
+      estimatedDelivery: "15-25 min"
+    },
+    reviews: [
+      {
+        id: "r1",
+        userName: "Marie A.",
+        rating: 5,
+        comment: "Amazing caramelized sugar shell, custard is silken and perfect.",
+        date: "2026-07-03"
+      }
+    ]
+  },
+  p20: {
+    id: "p20",
+    title: "Earl Grey Lavender Tea",
+    description: "Premium brewed black tea scented with oil of bergamot, infused with dried French lavender blossoms and a hint of wildflower honey.",
+    price: 9.00,
+    rating: 4.7,
+    reviewCount: 38,
+    image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=800"
+    ],
+    badge: "New",
+    category: "beverages",
+    ingredients: [
+      "Bergamot Black Tea Leaves",
+      "Culinary Lavender Blossoms",
+      "Wildflower Honey"
+    ],
+    nutrition: {
+      calories: "45 kcal",
+      fat: "0g",
+      protein: "0g",
+      carbs: "11g"
+    },
+    deliveryInfo: {
+      prepTime: "3-5 min",
+      availability: "In Stock",
+      estimatedDelivery: "15-25 min"
+    },
+    reviews: [
+      {
+        id: "r1",
+        userName: "Queen Elizabeth",
+        rating: 5,
+        comment: "Extremely delicate and soothing. Perfect morning brew.",
+        date: "2026-07-10"
+      }
+    ]
+  },
+  p21: {
+    id: "p21",
+    title: "Champagne Royal",
+    description: "Premium sparkling dry champagne topped with a splash of sweet house-made wild blackberry reduction.",
+    price: 22.00,
+    rating: 4.9,
+    reviewCount: 88,
+    image: "https://images.unsplash.com/photo-1594487981504-20ed6bc294a8?auto=format&fit=crop&q=80&w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1594487981504-20ed6bc294a8?auto=format&fit=crop&q=80&w=800"
+    ],
+    badge: "Exclusive",
+    category: "beverages",
+    ingredients: [
+      "French Champagne",
+      "Wild Blackberry Reduction"
+    ],
+    nutrition: {
+      calories: "140 kcal",
+      fat: "0g",
+      protein: "0g",
+      carbs: "12g"
+    },
+    deliveryInfo: {
+      prepTime: "3 min",
+      availability: "In Stock",
+      estimatedDelivery: "15-25 min"
+    },
+    reviews: [
+      {
+        id: "r1",
+        userName: "Gatsby",
+        rating: 5,
+        comment: "Vibrant bubbles, delightful berry sweetness.",
+        date: "2026-07-08"
+      }
+    ]
+  },
+  p22: {
+    id: "p22",
+    title: "Espresso Martini",
+    description: "Chilled vodka, freshly pulled organic espresso shot, and Kahlúa coffee liqueur, shaken with ice and garnished with espresso beans.",
+    price: 16.00,
+    rating: 4.8,
+    reviewCount: 154,
+    image: "https://images.unsplash.com/photo-1545696911-c436a55b97a0?auto=format&fit=crop&q=80&w=800",
+    gallery: [
+      "https://images.unsplash.com/photo-1545696911-c436a55b97a0?auto=format&fit=crop&q=80&w=800"
+    ],
+    badge: "Popular",
+    category: "beverages",
+    ingredients: [
+      "Vodka",
+      "Organic Espresso Shot",
+      "Kahlúa Liqueur",
+      "Martini Beans"
+    ],
+    nutrition: {
+      calories: "210 kcal",
+      fat: "0g",
+      protein: "0.2g",
+      carbs: "14g"
+    },
+    deliveryInfo: {
+      prepTime: "3-5 min",
+      availability: "In Stock",
+      estimatedDelivery: "15-25 min"
+    },
+    reviews: [
+      {
+        id: "r1",
+        userName: "Tony Stark",
+        rating: 5,
+        comment: "Excellent crema on top, packs a robust punch. Beautifully balanced cocktail.",
+        date: "2026-07-12"
+      }
+    ]
   }
 };
 export default productMock;

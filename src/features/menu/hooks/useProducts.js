@@ -1,11 +1,26 @@
 import { useState, useEffect, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import { categories } from "../data/categories";
 import { products as initialProducts } from "../data/products";
 
 export const useProducts = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const categoryParam = searchParams.get("category") || "all";
+  
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState("all");
   const [isLoading, setIsLoading] = useState(true);
+
+  const activeCategory = categoryParam;
+
+  const setActiveCategory = (category) => {
+    const newParams = new URLSearchParams(searchParams);
+    if (category === "all") {
+      newParams.delete("category");
+    } else {
+      newParams.set("category", category);
+    }
+    setSearchParams(newParams);
+  };
 
   // Micro-loading simulation for premium transitions
   useEffect(() => {

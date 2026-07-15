@@ -51,3 +51,7 @@ export * from "./Pagination";
 
 export { default as QuantitySelector } from "./QuantitySelector";
 export * from "./QuantitySelector";
+
+export { default as Breadcrumb } from "./Breadcrumb/Breadcrumb";
+export * from "./Breadcrumb/Breadcrumb";
+

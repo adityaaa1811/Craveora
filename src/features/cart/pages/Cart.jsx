@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import { useCart } from "../hooks/useCart";
@@ -55,9 +56,15 @@ export const CartPage = () => {
     checkPincode,
     clearPincode
   } = useCart();
+  const navigate = useNavigate();
 
   const handleCheckout = () => {
-    toast.success("Proceeding to checkout... (Payment simulation bypassed)");
+    navigate("/checkout");
+  };
+
+  const handleMoveToCart = (item) => {
+    moveToCart(item);
+    toast.success("Moved item to Cart.");
   };
 
   const handleRemoveSavedItem = (id) => {
@@ -73,7 +80,7 @@ export const CartPage = () => {
       initial="hidden"
       animate="visible"
       variants={pageVariants}
-      className="container mx-auto px-4 md:px-8 py-10 md:py-16 max-w-7xl select-none"
+      className="container mx-auto px-4 md:px-8 py-10 md:py-16 max-w-7xl"
     >
       {/* Header Title */}
       <motion.div variants={itemVariants} className="mb-8 md:mb-12">

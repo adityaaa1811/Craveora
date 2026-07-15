@@ -1,88 +1,50 @@
-import React from "react";
+import React, { useMemo } from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import { products } from "../../../features/menu/data/products";
+import ProductCard from "../../../features/menu/components/ProductCard";
 
 /**
  * SignatureCollection Section
  * Represents a showcase structure for signature culinary items.
- * Integrates structural layout grid placeholders instead of final product card components.
+ * Reuses the existing ProductCard components and loads real menu items.
  */
-const SignatureCollection = () => {
+export const SignatureCollection = () => {
+  // Grab 3 signature items from our catalog (e.g. Wagyu Steak, Salmon, Chocolate Opera)
+  const signatureItems = useMemo(() => {
+    return products.slice(0, 3);
+  }, []);
+
   return (
-    <section id="signature-collection" className="w-full py-16 md:py-24 border-t border-gray-100">
+    <section id="signature-collection" className="w-full py-16 md:py-24 border-t border-border/30 bg-surface select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-12">
           <div>
-            <span className="text-xs uppercase tracking-widest font-semibold block text-gray-500 mb-2">
+            <span className="text-2xs uppercase tracking-widest font-extrabold block text-primary mb-2">
               Limited Edition Creations
             </span>
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900">
+            <h2 className="text-3xl font-black tracking-tight text-text-primary">
               The Signature Collection
             </h2>
           </div>
-          <a
-            href="/menu"
-            className="text-xs font-semibold uppercase tracking-wider text-black border-b border-black mt-4 md:mt-0"
+          <Link
+            to="/menu"
+            className="text-xs font-bold uppercase tracking-wider text-primary hover:text-primary-hover flex items-center gap-1.5 mt-4 sm:mt-0 group"
           >
-            Explore Complete Collection
-          </a>
+            <span>Explore Complete Collection</span>
+            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
         </div>
 
-        {/* Structural Card Grid Layout (Placeholders only) */}
+        {/* Real Product Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Card Placeholder 1 */}
-          <div className="border border-gray-200 p-4 bg-white flex flex-col justify-between aspect-[3/4]">
-            <div className="bg-gray-50 border border-gray-100 aspect-square flex items-center justify-center text-center p-4 mb-4">
-              <span className="text-xs text-gray-400">Signature Dish Image Placeholder</span>
-            </div>
-            <div>
-              <span className="text-xs text-gray-400 font-semibold block uppercase mb-1">Entrée</span>
-              <h3 className="text-lg font-bold mb-1">Slow-Braised Wagyu Short Rib</h3>
-              <p className="text-xs text-gray-500 mb-4">
-                Cooked for 72 hours with red wine reduction and baby root vegetables.
-              </p>
-            </div>
-            <div className="flex justify-between items-center mt-auto border-t border-gray-100 pt-4">
-              <span className="text-sm font-bold">$48.00</span>
-              <span className="text-xs font-semibold uppercase text-gray-400">Product Card Placeholder</span>
-            </div>
-          </div>
-
-          {/* Card Placeholder 2 */}
-          <div className="border border-gray-200 p-4 bg-white flex flex-col justify-between aspect-[3/4]">
-            <div className="bg-gray-50 border border-gray-100 aspect-square flex items-center justify-center text-center p-4 mb-4">
-              <span className="text-xs text-gray-400">Signature Dish Image Placeholder</span>
-            </div>
-            <div>
-              <span className="text-xs text-gray-400 font-semibold block uppercase mb-1">Seafood</span>
-              <h3 className="text-lg font-bold mb-1">Pan-Seared Chilean Sea Bass</h3>
-              <p className="text-xs text-gray-500 mb-4">
-                Served over saffron-infused risotto and wild fennel broth.
-              </p>
-            </div>
-            <div className="flex justify-between items-center mt-auto border-t border-gray-100 pt-4">
-              <span className="text-sm font-bold">$42.00</span>
-              <span className="text-xs font-semibold uppercase text-gray-400">Product Card Placeholder</span>
-            </div>
-          </div>
-
-          {/* Card Placeholder 3 */}
-          <div className="border border-gray-200 p-4 bg-white flex flex-col justify-between aspect-[3/4]">
-            <div className="bg-gray-50 border border-gray-100 aspect-square flex items-center justify-center text-center p-4 mb-4">
-              <span className="text-xs text-gray-400">Signature Dish Image Placeholder</span>
-            </div>
-            <div>
-              <span className="text-xs text-gray-400 font-semibold block uppercase mb-1">Dessert</span>
-              <h3 className="text-lg font-bold mb-1">Craveora Gold-Leaf Opera Cake</h3>
-              <p className="text-xs text-gray-500 mb-4">
-                Layers of almond sponge, espresso buttercream, and dark chocolate ganache.
-              </p>
-            </div>
-            <div className="flex justify-between items-center mt-auto border-t border-gray-100 pt-4">
-              <span className="text-sm font-bold">$18.00</span>
-              <span className="text-xs font-semibold uppercase text-gray-400">Product Card Placeholder</span>
-            </div>
-          </div>
+          {signatureItems.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
+
       </div>
     </section>
   );

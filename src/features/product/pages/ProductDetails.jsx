@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import { useProduct } from "../hooks/useProduct";
-import Breadcrumb from "../components/Breadcrumb";
 import ProductGallery from "../components/ProductGallery";
 import ProductInfo from "../components/ProductInfo";
 import ProductActions from "../components/ProductActions";
@@ -68,10 +67,8 @@ export const ProductDetailsFeature = () => {
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Gourmet Discovery</span>
         </button>
-        {isLoading ? (
+        {isLoading && (
           <div className="h-4 bg-neutral-200 rounded w-1/4 animate-pulse mt-2" />
-        ) : (
-          <Breadcrumb productName={product?.title} />
         )}
       </motion.div>
 
