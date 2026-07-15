@@ -1,11 +1,8 @@
 import React from "react";
+import MenuFeature from "../features/menu/pages/Menu";
 
 const Menu = () => {
-  return (
-    <div>
-      <h1>Menu Page</h1>
-    </div>
-  );
+  return <MenuFeature />;
 };
 
 export default Menu;
