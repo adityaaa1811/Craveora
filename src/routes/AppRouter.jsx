@@ -34,6 +34,7 @@ const WishlistPage = lazy(() => import("../pages/WishlistPage"));
 const SettingsPage = lazy(() => import("../pages/SettingsPage"));
 
 const NotFound = lazy(() => import("../pages/NotFound"));
+const OffersPage = lazy(() => import("../pages/OffersPage"));
 
 const AppRouter = () => {
   return (
@@ -54,6 +55,7 @@ const AppRouter = () => {
             <Route path="/cart" element={<Cart />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/offers" element={<OffersPage />} />
 
             {/* Protected Routes */}
             <Route element={<ProtectedRoute />}>

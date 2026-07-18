@@ -18,6 +18,7 @@ const titleMap = {
   "/forgot-password": "Recover Account",
   "/reset-password": "Reset Password",
   "/verify-email": "Account Verification",
+  "/offers": "Offers & Coupons",
   "/dashboard": "Club Room Overview",
   "/dashboard/profile": "Profile Credentials",
   "/dashboard/addresses": "Delivery Coordinates",

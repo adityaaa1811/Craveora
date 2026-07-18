@@ -8,7 +8,12 @@ export const products = [
     rating: 4.9,
     image: "https://images.unsplash.com/photo-1592417817098-8f3d6eb19675?auto=format&fit=crop&q=80&w=800",
     badge: "Chef's Choice",
-    category: "starters"
+    category: "starters",
+    cuisine: "Italian",
+    isVeg: true,
+    prepTime: 10,
+    popularity: 88,
+    createdDate: "2026-07-01"
   },
   {
     id: "p2",
@@ -19,7 +24,12 @@ export const products = [
     rating: 4.95,
     image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800",
     badge: "Best Seller",
-    category: "mains"
+    category: "mains",
+    cuisine: "Japanese",
+    isVeg: false,
+    prepTime: 25,
+    popularity: 99,
+    createdDate: "2026-06-25"
   },
   {
     id: "p3",
@@ -29,7 +39,12 @@ export const products = [
     rating: 4.7,
     image: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&q=80&w=800",
     badge: "New",
-    category: "mains"
+    category: "mains",
+    cuisine: "French",
+    isVeg: false,
+    prepTime: 18,
+    popularity: 75,
+    createdDate: "2026-07-15"
   },
   {
     id: "p4",
@@ -39,7 +54,12 @@ export const products = [
     rating: 5.0,
     image: "https://images.unsplash.com/photo-1559742811-82410b510429?auto=format&fit=crop&q=80&w=800",
     badge: "Limited",
-    category: "specials"
+    category: "specials",
+    cuisine: "French",
+    isVeg: false,
+    prepTime: 35,
+    popularity: 95,
+    createdDate: "2026-07-10"
   },
   {
     id: "p5",
@@ -50,7 +70,12 @@ export const products = [
     rating: 4.8,
     image: "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&q=80&w=800",
     badge: "Chef's Choice",
-    category: "mains"
+    category: "mains",
+    cuisine: "Italian",
+    isVeg: true,
+    prepTime: 20,
+    popularity: 82,
+    createdDate: "2026-07-05"
   },
   {
     id: "p6",
@@ -60,7 +85,12 @@ export const products = [
     rating: 4.9,
     image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&q=80&w=800",
     badge: "Best Seller",
-    category: "desserts"
+    category: "desserts",
+    cuisine: "French",
+    isVeg: true,
+    prepTime: 15,
+    popularity: 92,
+    createdDate: "2026-06-20"
   },
   {
     id: "p7",
@@ -70,7 +100,12 @@ export const products = [
     rating: 4.65,
     image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&q=80&w=800",
     badge: "New",
-    category: "desserts"
+    category: "desserts",
+    cuisine: "Japanese",
+    isVeg: true,
+    prepTime: 8,
+    popularity: 68,
+    createdDate: "2026-07-14"
   },
   {
     id: "p8",
@@ -80,7 +115,12 @@ export const products = [
     rating: 4.85,
     image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&q=80&w=800",
     badge: "Chef's Choice",
-    category: "beverages"
+    category: "beverages",
+    cuisine: "American",
+    isVeg: true,
+    prepTime: 5,
+    popularity: 86,
+    createdDate: "2026-07-08"
   },
   {
     id: "p9",
@@ -90,7 +130,12 @@ export const products = [
     rating: 4.75,
     image: "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?auto=format&fit=crop&q=80&w=800",
     badge: "New",
-    category: "starters"
+    category: "starters",
+    cuisine: "American",
+    isVeg: false,
+    prepTime: 12,
+    popularity: 70,
+    createdDate: "2026-07-12"
   },
   {
     id: "p10",
@@ -100,7 +145,12 @@ export const products = [
     rating: 4.6,
     image: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&q=80&w=800",
     badge: "Limited",
-    category: "beverages"
+    category: "beverages",
+    cuisine: "Modern",
+    isVeg: true,
+    prepTime: 6,
+    popularity: 62,
+    createdDate: "2026-07-02"
   },
   {
     id: "p11",
@@ -110,7 +160,12 @@ export const products = [
     rating: 4.95,
     image: "https://images.unsplash.com/photo-1534482421-64566f976cfa?auto=format&fit=crop&q=80&w=800",
     badge: "Exclusive",
-    category: "starters"
+    category: "starters",
+    cuisine: "French",
+    isVeg: false,
+    prepTime: 10,
+    popularity: 90,
+    createdDate: "2026-07-03"
   },
   {
     id: "p12",
@@ -120,7 +175,12 @@ export const products = [
     rating: 4.75,
     image: "https://images.unsplash.com/photo-1547592165-e1d17fed6005?auto=format&fit=crop&q=80&w=800",
     badge: "Seasonal",
-    category: "starters"
+    category: "starters",
+    cuisine: "French",
+    isVeg: true,
+    prepTime: 15,
+    popularity: 72,
+    createdDate: "2026-07-06"
   },
   {
     id: "p13",
@@ -130,7 +190,12 @@ export const products = [
     rating: 4.85,
     image: "https://images.unsplash.com/photo-1514516345957-556ca7d90a29?auto=format&fit=crop&q=80&w=800",
     badge: "Chef's Choice",
-    category: "mains"
+    category: "mains",
+    cuisine: "French",
+    isVeg: false,
+    prepTime: 30,
+    popularity: 84,
+    createdDate: "2026-06-30"
   },
   {
     id: "p14",
@@ -140,7 +205,12 @@ export const products = [
     rating: 4.9,
     image: "https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&q=80&w=800",
     badge: "Best Seller",
-    category: "mains"
+    category: "mains",
+    cuisine: "Modern",
+    isVeg: false,
+    prepTime: 25,
+    popularity: 89,
+    createdDate: "2026-07-04"
   },
   {
     id: "p15",
@@ -150,7 +220,12 @@ export const products = [
     rating: 4.95,
     image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&q=80&w=800",
     badge: "New",
-    category: "specials"
+    category: "specials",
+    cuisine: "Italian",
+    isVeg: false,
+    prepTime: 22,
+    popularity: 94,
+    createdDate: "2026-07-16"
   },
   {
     id: "p16",
@@ -160,7 +235,12 @@ export const products = [
     rating: 5.0,
     image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800",
     badge: "Exclusive",
-    category: "specials"
+    category: "specials",
+    cuisine: "French",
+    isVeg: false,
+    prepTime: 40,
+    popularity: 98,
+    createdDate: "2026-07-09"
   },
   {
     id: "p17",
@@ -170,7 +250,12 @@ export const products = [
     rating: 4.6,
     image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&q=80&w=800",
     badge: "Popular",
-    category: "starters"
+    category: "starters",
+    cuisine: "American",
+    isVeg: true,
+    prepTime: 10,
+    popularity: 85,
+    createdDate: "2026-07-07"
   },
   {
     id: "p18",
@@ -180,7 +265,12 @@ export const products = [
     rating: 4.8,
     image: "https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&q=80&w=800",
     badge: "Chef's Choice",
-    category: "desserts"
+    category: "desserts",
+    cuisine: "French",
+    isVeg: true,
+    prepTime: 25,
+    popularity: 78,
+    createdDate: "2026-07-11"
   },
   {
     id: "p19",
@@ -190,7 +280,12 @@ export const products = [
     rating: 4.85,
     image: "https://images.unsplash.com/photo-1470324161839-ce2bb6fa6bc3?auto=format&fit=crop&q=80&w=800",
     badge: "Best Seller",
-    category: "desserts"
+    category: "desserts",
+    cuisine: "French",
+    isVeg: true,
+    prepTime: 12,
+    popularity: 87,
+    createdDate: "2026-06-28"
   },
   {
     id: "p20",
@@ -200,7 +295,12 @@ export const products = [
     rating: 4.7,
     image: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&q=80&w=800",
     badge: "New",
-    category: "beverages"
+    category: "beverages",
+    cuisine: "Modern",
+    isVeg: true,
+    prepTime: 5,
+    popularity: 65,
+    createdDate: "2026-07-13"
   },
   {
     id: "p21",
@@ -210,7 +310,12 @@ export const products = [
     rating: 4.9,
     image: "https://images.unsplash.com/photo-1594487981504-20ed6bc294a8?auto=format&fit=crop&q=80&w=800",
     badge: "Exclusive",
-    category: "beverages"
+    category: "beverages",
+    cuisine: "French",
+    isVeg: true,
+    prepTime: 4,
+    popularity: 91,
+    createdDate: "2026-07-08"
   },
   {
     id: "p22",
@@ -220,6 +325,11 @@ export const products = [
     rating: 4.8,
     image: "https://images.unsplash.com/photo-1545696911-c436a55b97a0?auto=format&fit=crop&q=80&w=800",
     badge: "Popular",
-    category: "beverages"
+    category: "beverages",
+    cuisine: "American",
+    isVeg: true,
+    prepTime: 5,
+    popularity: 83,
+    createdDate: "2026-07-10"
   }
 ];

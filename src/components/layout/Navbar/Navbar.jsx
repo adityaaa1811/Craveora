@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, ShoppingBag, Menu, Search, X, LogOut, LayoutDashboard, User as UserIcon, Settings } from "lucide-react";
+import { Heart, ShoppingBag, Menu, Search, X, LogOut, LayoutDashboard, User as UserIcon, Settings, Bell, Truck, Award } from "lucide-react";
 import { toast } from "react-hot-toast";
+import { products } from "../../../features/menu/data/products";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { selectCartTotalQuantity } from "../../../store/slices/cartSlice";
 import { selectWishlistItems } from "../../../store/slices/wishlistSlice";
@@ -17,6 +18,7 @@ import BrandLogo from "./BrandLogo";
 
 export const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   
   // Scrolled shadow states
@@ -25,6 +27,24 @@ export const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+
+  // Recent searches state loaded from localStorage
+  const [recentSearches, setRecentSearches] = useState(() => {
+    const saved = localStorage.getItem("craveora_recent_searches");
+    return saved ? JSON.parse(saved) : ["Burrata", "Risotto", "Truffle", "Steak"];
+  });
+
+  // Notifications state loaded from localStorage
+  const [notifications, setNotifications] = useState(() => {
+    const saved = localStorage.getItem("craveora_notifications");
+    return saved ? JSON.parse(saved) : [
+      { id: "n1", type: "order", title: "Order En Route", message: "Valet has departed our culinary studio with your gourmet order CRV-2026-98745.", time: "12 mins ago", read: false },
+      { id: "n2", type: "offer", title: "Sunday Brunch Special", message: "Enjoy 20% off Japanese Wagyu ribeye steaks using code CRAVE20 today.", time: "3 hours ago", read: false },
+      { id: "n3", type: "wishlist", title: "Burrata Restocked", message: "Truffle Burrata Salad is back in fresh executive kitchen stock.", time: "1 day ago", read: true },
+      { id: "n4", type: "system", title: "Connoisseur Active", message: "Your luxury Craveora Club room membership tier is successfully active.", time: "2 days ago", read: true }
+    ];
+  });
 
   // Redux selects
   const cartQuantity = useAppSelector(selectCartTotalQuantity);
@@ -40,6 +60,63 @@ export const Navbar = () => {
     window.addEventListener("click", handleCloseDropdown);
     return () => window.removeEventListener("click", handleCloseDropdown);
   }, [isProfileDropdownOpen]);
+
+  // Close notifications dropdown on click outside
+  useEffect(() => {
+    if (!isNotificationsOpen) return;
+    const handleCloseDropdown = () => setIsNotificationsOpen(false);
+    window.addEventListener("click", handleCloseDropdown);
+    return () => window.removeEventListener("click", handleCloseDropdown);
+  }, [isNotificationsOpen]);
+
+  const saveNotifications = (updatedList) => {
+    setNotifications(updatedList);
+    localStorage.setItem("craveora_notifications", JSON.stringify(updatedList));
+  };
+
+  const handleMarkAllRead = () => {
+    const updated = notifications.map((n) => ({ ...n, read: true }));
+    saveNotifications(updated);
+    toast.success("All notifications marked as read.");
+  };
+
+  const handleReadNotification = (id) => {
+    const updated = notifications.map((n) =>
+      n.id === id ? { ...n, read: true } : n
+    );
+    saveNotifications(updated);
+  };
+
+  // Advanced Search suggestions
+  const searchSuggestions = useMemo(() => {
+    const clean = searchQuery.trim().toLowerCase();
+    if (!clean) return [];
+    return products.filter((p) =>
+      p.title.toLowerCase().includes(clean) ||
+      p.description.toLowerCase().includes(clean)
+    ).slice(0, 5);
+  }, [searchQuery]);
+
+  const saveRecentSearch = (query) => {
+    if (!query.trim()) return;
+    const clean = query.trim();
+    const updated = [clean, ...recentSearches.filter((s) => s !== clean)].slice(0, 5);
+    setRecentSearches(updated);
+    localStorage.setItem("craveora_recent_searches", JSON.stringify(updated));
+  };
+
+  const handleDeleteRecentSearch = (e, item) => {
+    e.stopPropagation();
+    const updated = recentSearches.filter((s) => s !== item);
+    setRecentSearches(updated);
+    localStorage.setItem("craveora_recent_searches", JSON.stringify(updated));
+  };
+
+  const handleSuggestionClick = (title) => {
+    saveRecentSearch(title);
+    setIsSearchOpen(false);
+    setSearchQuery("");
+  };
 
   const toggleDropdown = (e) => {
     e.stopPropagation();
@@ -95,8 +172,10 @@ export const Navbar = () => {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
+    if (!searchQuery.trim()) return;
+    saveRecentSearch(searchQuery);
     setIsSearchOpen(false);
-    setSearchQuery("");
+    navigate(`/menu?search=${encodeURIComponent(searchQuery)}`);
   };
 
   return (
@@ -161,6 +240,100 @@ export const Navbar = () => {
                   </span>
                 )}
               </Link>
+
+              {/* Notification Center Trigger */}
+              <div className="relative">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsNotificationsOpen(!isNotificationsOpen);
+                  }}
+                  type="button"
+                  className="relative p-2 text-text-secondary hover:text-primary hover:bg-neutral-50 transition-all rounded-full focus:ring-2 focus:ring-primary/20 outline-none cursor-pointer"
+                  aria-label="Toggle notifications center"
+                  aria-expanded={isNotificationsOpen}
+                  aria-haspopup="menu"
+                >
+                  <Bell className="w-5 h-5" />
+                  {notifications.filter(n => !n.read).length > 0 && (
+                    <span className="absolute top-1 right-1 flex h-2 w-2 rounded-full bg-error ring-2 ring-surface animate-pulse" />
+                  )}
+                </button>
+
+                <AnimatePresence>
+                  {isNotificationsOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.18, ease: "easeOut" }}
+                      onClick={(e) => e.stopPropagation()}
+                      className="absolute right-0 top-12 w-80 bg-surface border border-border/40 rounded-2xl shadow-lg p-4 z-50 flex flex-col gap-3 select-none"
+                      role="menu"
+                      aria-label="Notification center panel"
+                    >
+                      <div className="flex justify-between items-center pb-2.5 border-b border-border-light">
+                        <span className="text-[11px] font-black text-text-primary uppercase tracking-wider">
+                          Notifications
+                        </span>
+                        {notifications.some(n => !n.read) && (
+                          <button
+                            type="button"
+                            onClick={handleMarkAllRead}
+                            className="text-[10px] font-black text-primary hover:underline cursor-pointer"
+                          >
+                            Mark All Read
+                          </button>
+                        )}
+                      </div>
+
+                      <div className="flex flex-col gap-2 max-h-60 overflow-y-auto pr-1 no-scrollbar">
+                        {notifications.length === 0 ? (
+                          <div className="text-center py-6 flex flex-col items-center gap-2">
+                            <Bell className="w-8 h-8 text-neutral-300 stroke-[1.5]" />
+                            <span className="text-[10px] font-bold text-text-muted">No notifications yet.</span>
+                          </div>
+                        ) : (
+                          notifications.map((item) => {
+                            const Icon = item.type === "order" ? Truck : item.type === "offer" ? Award : item.type === "wishlist" ? Heart : Bell;
+                            return (
+                              <div
+                                key={item.id}
+                                onClick={() => handleReadNotification(item.id)}
+                                className={`p-2.5 rounded-xl border transition-all cursor-pointer flex gap-3 text-left ${
+                                  item.read 
+                                    ? "bg-surface border-transparent" 
+                                    : "bg-primary-light/10 border-primary-light/20 shadow-2xs"
+                                }`}
+                                role="menuitem"
+                              >
+                                <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${
+                                  item.read ? "bg-neutral-100 text-text-muted" : "bg-primary-light text-primary"
+                                }`}>
+                                  <Icon className="w-3.5 h-3.5" />
+                                </div>
+                                <div className="flex flex-col gap-0.5 min-w-0">
+                                  <div className="flex justify-between items-baseline gap-2">
+                                    <span className="text-[10px] font-bold text-text-primary truncate">
+                                      {item.title}
+                                    </span>
+                                    <span className="text-[8px] text-text-muted shrink-0 font-mono">
+                                      {item.time}
+                                    </span>
+                                  </div>
+                                  <p className="text-[9px] text-text-secondary leading-normal mt-0.5 clamp-2">
+                                    {item.message}
+                                  </p>
+                                </div>
+                              </div>
+                            );
+                          })
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
 
               {/* Profile Avatar / Auth CTAs */}
               {isAuthenticated ? (
@@ -317,23 +490,103 @@ export const Navbar = () => {
             />
             <Search className="w-4 h-4 text-text-muted absolute left-4 top-3.5" />
           </div>
-          <div className="flex flex-col gap-2 mt-2">
-            <span className="text-[10px] text-text-muted font-bold uppercase tracking-wider pl-1">
-              Popular Searches
-            </span>
-            <div className="flex flex-wrap gap-2">
-              {["Steak", "Pastries", "Lobster", "Elixirs"].map((tag) => (
-                <button
-                  key={tag}
-                  type="button"
-                  onClick={() => setSearchQuery(tag)}
-                  className="px-3 py-1.5 text-2xs font-semibold text-text-secondary border border-border rounded-full hover:bg-primary-light hover:text-primary transition-colors cursor-pointer"
-                >
-                  {tag}
-                </button>
-              ))}
+
+          {/* Conditional dropdown elements */}
+          {searchQuery.trim() === "" ? (
+            <div className="flex flex-col gap-4 mt-2">
+              {/* Recent Searches */}
+              {recentSearches.length > 0 && (
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-[9px] text-text-muted font-bold uppercase tracking-wider pl-1">
+                    Recent Searches
+                  </span>
+                  <div className="flex flex-col gap-1">
+                    {recentSearches.map((item) => (
+                      <div
+                        key={item}
+                        onClick={() => {
+                          setSearchQuery(item);
+                          saveRecentSearch(item);
+                          setIsSearchOpen(false);
+                          navigate(`/menu?search=${encodeURIComponent(item)}`);
+                        }}
+                        className="flex items-center justify-between px-3 py-2 rounded-xl text-2xs font-semibold text-text-secondary hover:bg-neutral-50 hover:text-primary transition-colors cursor-pointer"
+                      >
+                        <span>{item}</span>
+                        <button
+                          type="button"
+                          onClick={(e) => handleDeleteRecentSearch(e, item)}
+                          className="p-1 text-text-muted hover:text-error transition-colors cursor-pointer"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Popular Searches */}
+              <div className="flex flex-col gap-2">
+                <span className="text-[9px] text-text-muted font-bold uppercase tracking-wider pl-1">
+                  Popular Searches
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {["Wagyu", "Salad", "Lobster", "Panna Cotta"].map((tag) => (
+                    <button
+                      key={tag}
+                      type="button"
+                      onClick={() => {
+                        setSearchQuery(tag);
+                        saveRecentSearch(tag);
+                        setIsSearchOpen(false);
+                        navigate(`/menu?search=${encodeURIComponent(tag)}`);
+                      }}
+                      className="px-3.5 py-2 text-2xs font-semibold text-text-secondary border border-border/80 rounded-full hover:bg-primary-light hover:text-primary transition-colors cursor-pointer"
+                    >
+                      {tag}
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="flex flex-col gap-2.5 mt-2">
+              <span className="text-[9px] text-text-muted font-bold uppercase tracking-wider pl-1">
+                Dishes Found
+              </span>
+              <div className="flex flex-col gap-2 max-h-60 overflow-y-auto pr-1 no-scrollbar">
+                {searchSuggestions.length === 0 ? (
+                  <div className="py-6 text-center text-2xs text-text-muted italic">
+                    No dishes found matching "{searchQuery}"
+                  </div>
+                ) : (
+                  searchSuggestions.map((item) => (
+                    <Link
+                      key={item.id}
+                      to={`/menu/${item.id}`}
+                      onClick={() => handleSuggestionClick(item.title)}
+                      className="flex items-center gap-3 p-2 rounded-xl border border-transparent hover:bg-neutral-50 hover:border-border/40 transition-all text-left"
+                    >
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-10 h-10 rounded-lg object-cover border border-border-light shrink-0"
+                      />
+                      <div className="flex-grow min-w-0 flex flex-col gap-0.5">
+                        <span className="text-2xs font-bold text-text-primary truncate">
+                          {item.title}
+                        </span>
+                        <span className="text-[9px] text-text-muted font-semibold uppercase font-mono">
+                          ${item.price.toFixed(2)}
+                        </span>
+                      </div>
+                    </Link>
+                  ))
+                )}
+              </div>
+            </div>
+          )}
         </form>
       </Modal>
 

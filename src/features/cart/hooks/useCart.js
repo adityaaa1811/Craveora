@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import {
   addItem as addToCartAction,
@@ -41,6 +41,21 @@ export const useCart = () => {
   const priceBreakdown = useMemo(() => {
     return calculateCart(cartItems, discountPercent, freeDeliveryCoupon);
   }, [cartItems, discountPercent, freeDeliveryCoupon]);
+
+  // Load coupon from localStorage on mount
+  useEffect(() => {
+    const savedCoupon = localStorage.getItem("craveora_applied_coupon");
+    if (savedCoupon) {
+      const cleanCode = savedCoupon.trim().toUpperCase();
+      const match = COUPON_CODES[cleanCode];
+      if (match) {
+        setDiscountPercent(match.percent);
+        setFreeDeliveryCoupon(match.freeDelivery);
+        setCouponCode(cleanCode);
+        setCouponSuccess(`Applied: ${match.description}`);
+      }
+    }
+  }, []);
 
   // Cart operations wrappers
   const handleAddItem = (product) => dispatch(addToCartAction(product));
@@ -86,6 +101,7 @@ export const useCart = () => {
       setFreeDeliveryCoupon(match.freeDelivery);
       setCouponCode(cleanCode);
       setCouponSuccess(`Applied: ${match.description}`);
+      localStorage.setItem("craveora_applied_coupon", cleanCode);
     } else {
       setCouponError("Invalid coupon code");
       setDiscountPercent(0);
@@ -99,6 +115,7 @@ export const useCart = () => {
     setFreeDeliveryCoupon(false);
     setCouponError("");
     setCouponSuccess("");
+    localStorage.removeItem("craveora_applied_coupon");
   };
 
   // Pincode lookups

@@ -9,6 +9,7 @@ import ProductActions from "../components/ProductActions";
 import DeliveryInfo from "../components/DeliveryInfo";
 import ProductTabs from "../components/ProductTabs";
 import RecommendedProducts from "../components/RecommendedProducts";
+import FrequentlyBoughtTogether from "../components/FrequentlyBoughtTogether";
 import { EmptyState, Skeleton } from "../../../components/ui";
 
 const pageVariants = {
@@ -129,11 +130,27 @@ export const ProductDetailsFeature = () => {
             <ProductTabs product={product} />
           </motion.div>
 
+          {/* Frequently Bought Together Bundle */}
+          <motion.div variants={itemVariants} className="w-full">
+            <FrequentlyBoughtTogether currentProduct={product} />
+          </motion.div>
+
           {/* Related Pairings recommendations */}
           <motion.div variants={itemVariants} className="w-full">
             <RecommendedProducts
               category={product.category}
               currentProductId={product.id}
+            />
+          </motion.div>
+
+          {/* Customers Also Ordered recommendations */}
+          <motion.div variants={itemVariants} className="w-full">
+            <RecommendedProducts
+              category={product.category}
+              currentProductId={product.id}
+              title="Customers Also Ordered"
+              description="Popular pairings and cross-category selections enjoyed by other members."
+              filterType="cross-sell"
             />
           </motion.div>
         </>
