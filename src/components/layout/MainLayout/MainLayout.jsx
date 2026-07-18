@@ -11,6 +11,7 @@ const titleMap = {
   "/menu": "Gourmet Menu",
   "/cart": "Gourmet Bag",
   "/checkout": "Secure Checkout",
+  "/order-success": "Order Success",
   "/about": "Our Brand Story",
   "/contact": "Concierge Contact",
   "/profile": "My Account"

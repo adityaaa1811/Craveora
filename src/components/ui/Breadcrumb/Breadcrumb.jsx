@@ -7,6 +7,7 @@ const pathMap = {
   menu: { label: "Gourmet Menu", path: "/menu" },
   cart: { label: "Gourmet Bag", path: "/cart" },
   checkout: { label: "Secure Checkout", path: "/checkout" },
+  "order-success": { label: "Order Success", path: "/order-success" },
   about: { label: "Our Story", path: "/about" },
   contact: { label: "Concierge Contact", path: "/contact" },
   profile: { label: "My Account", path: "/profile" }

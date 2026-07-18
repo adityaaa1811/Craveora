@@ -11,7 +11,8 @@ import Home from "../pages/Home"; // Keep Home static for fast initial load
 const Menu = lazy(() => import("../pages/Menu"));
 const ProductDetails = lazy(() => import("../pages/ProductDetails"));
 const Cart = lazy(() => import("../pages/Cart"));
-const Checkout = lazy(() => import("../pages/Checkout"));
+const CheckoutPage = lazy(() => import("../pages/CheckoutPage"));
+const OrderSuccessPage = lazy(() => import("../pages/OrderSuccessPage"));
 const About = lazy(() => import("../pages/About"));
 const Contact = lazy(() => import("../pages/Contact"));
 const Login = lazy(() => import("../pages/Login"));
@@ -36,7 +37,8 @@ const AppRouter = () => {
             <Route path="/menu" element={<Menu />} />
             <Route path="/menu/:id" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/order-success" element={<OrderSuccessPage />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/profile" element={<Profile />} />
