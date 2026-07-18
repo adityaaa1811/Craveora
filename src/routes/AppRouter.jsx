@@ -1,10 +1,11 @@
 import React, { lazy, Suspense } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Spinner } from "../components/ui";
 
 // Layouts
 import MainLayout from "../components/layout/MainLayout/MainLayout";
 import AuthLayout from "../layouts/AuthLayout";
+import DashboardLayout from "../layouts/DashboardLayout";
 
 import ProtectedRoute from "../components/common/ProtectedRoute";
 
@@ -22,7 +23,16 @@ const RegisterPage = lazy(() => import("../pages/RegisterPage"));
 const ForgotPasswordPage = lazy(() => import("../pages/ForgotPasswordPage"));
 const ResetPasswordPage = lazy(() => import("../pages/ResetPasswordPage"));
 const EmailVerificationPage = lazy(() => import("../pages/EmailVerificationPage"));
-const Profile = lazy(() => import("../pages/Profile"));
+
+// Dashboard Pages
+const DashboardPage = lazy(() => import("../pages/DashboardPage"));
+const ProfilePage = lazy(() => import("../pages/ProfilePage"));
+const AddressesPage = lazy(() => import("../pages/AddressesPage"));
+const OrdersPage = lazy(() => import("../pages/OrdersPage"));
+const OrderDetailsPage = lazy(() => import("../pages/OrderDetailsPage"));
+const WishlistPage = lazy(() => import("../pages/WishlistPage"));
+const SettingsPage = lazy(() => import("../pages/SettingsPage"));
+
 const NotFound = lazy(() => import("../pages/NotFound"));
 
 const AppRouter = () => {
@@ -49,7 +59,20 @@ const AppRouter = () => {
             <Route element={<ProtectedRoute />}>
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/order-success" element={<OrderSuccessPage />} />
-              <Route path="/profile" element={<Profile />} />
+              
+              {/* Legacy Profile Redirect */}
+              <Route path="/profile" element={<Navigate to="/dashboard/profile" replace />} />
+              
+              {/* Dashboard Layout Wrapper */}
+              <Route element={<DashboardLayout />}>
+                <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/dashboard/profile" element={<ProfilePage />} />
+                <Route path="/dashboard/addresses" element={<AddressesPage />} />
+                <Route path="/dashboard/orders" element={<OrdersPage />} />
+                <Route path="/dashboard/orders/:id" element={<OrderDetailsPage />} />
+                <Route path="/dashboard/wishlist" element={<WishlistPage />} />
+                <Route path="/dashboard/settings" element={<SettingsPage />} />
+              </Route>
             </Route>
           </Route>
 

@@ -25,9 +25,10 @@ import {
   Building,
   QrCode
 } from "lucide-react";
-import { useAppSelector } from "../store/hooks";
+import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { selectCurrentUser } from "../store/slices/authSlice";
 import { useCart } from "../features/cart/hooks/useCart";
+import { addOrder } from "../store/slices/ordersSlice";
 import { Card, Input, Button } from "../components/ui";
 
 const checkoutSchema = z.object({
@@ -99,6 +100,7 @@ const checkoutSchema = z.object({
 
 export const CheckoutPage = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectCurrentUser);
   const { 
     cartItems, 
@@ -203,9 +205,42 @@ export const CheckoutPage = () => {
     // Simulate luxury order creation API
     setTimeout(() => {
       setIsSubmitting(false);
-      toast.success("Order Placed Successfully! Chef has started preparing.");
       
       const orderNumber = `CRV-2026-${Math.floor(10000 + Math.random() * 90000)}`;
+      
+      // Save order details to Redux Orders Slice
+      dispatch(addOrder({
+        id: orderNumber,
+        date: new Date().toISOString().split("T")[0],
+        status: "Preparing",
+        amount: dynamicPricing.grandTotal,
+        deliveryAddress: {
+          name: data.name,
+          phone: data.phone,
+          street: data.street,
+          city: data.city,
+          state: data.state,
+          postalCode: data.postalCode,
+          country: data.country
+        },
+        items: cartItems.map((item) => ({
+          id: item.id,
+          title: item.title,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image
+        })),
+        paymentSummary: {
+          subtotal: dynamicPricing.subtotal,
+          discount: dynamicPricing.discount,
+          deliveryFee: dynamicPricing.deliveryFee,
+          tax: dynamicPricing.tax,
+          grandTotal: dynamicPricing.grandTotal,
+          paymentMethod: data.paymentMethod === "cod" ? "COD" : data.paymentMethod === "upi" ? "UPI" : "Card"
+        }
+      }));
+
+      toast.success("Order Placed Successfully! Chef has started preparing.");
       
       // Clear the cart on successful checkout
       clearCart();

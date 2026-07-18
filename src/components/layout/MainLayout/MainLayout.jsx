@@ -17,7 +17,13 @@ const titleMap = {
   "/profile": "My Account",
   "/forgot-password": "Recover Account",
   "/reset-password": "Reset Password",
-  "/verify-email": "Account Verification"
+  "/verify-email": "Account Verification",
+  "/dashboard": "Club Room Overview",
+  "/dashboard/profile": "Profile Credentials",
+  "/dashboard/addresses": "Delivery Coordinates",
+  "/dashboard/orders": "Order Archive",
+  "/dashboard/wishlist": "Gourmet Wishlist",
+  "/dashboard/settings": "System Settings"
 };
 
 export const MainLayout = () => {

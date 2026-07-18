@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Heart, ShoppingBag, Menu, Search, X, LogOut } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Heart, ShoppingBag, Menu, Search, X, LogOut, LayoutDashboard, User as UserIcon, Settings } from "lucide-react";
 import { toast } from "react-hot-toast";
 import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { selectCartTotalQuantity } from "../../../store/slices/cartSlice";
@@ -24,6 +24,7 @@ export const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
   // Redux selects
   const cartQuantity = useAppSelector(selectCartTotalQuantity);
@@ -31,6 +32,19 @@ export const Navbar = () => {
   const wishlistCount = wishlistItems.length;
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const currentUser = useAppSelector(selectCurrentUser);
+
+  // Close profile dropdown on click outside
+  useEffect(() => {
+    if (!isProfileDropdownOpen) return;
+    const handleCloseDropdown = () => setIsProfileDropdownOpen(false);
+    window.addEventListener("click", handleCloseDropdown);
+    return () => window.removeEventListener("click", handleCloseDropdown);
+  }, [isProfileDropdownOpen]);
+
+  const toggleDropdown = (e) => {
+    e.stopPropagation();
+    setIsProfileDropdownOpen((prev) => !prev);
+  };
 
   const handleLogout = () => {
     dispatch(logout());
@@ -150,22 +164,76 @@ export const Navbar = () => {
 
               {/* Profile Avatar / Auth CTAs */}
               {isAuthenticated ? (
-                <div className="flex items-center gap-3">
-                  <Link
-                    to="/profile"
+                <div className="relative flex items-center gap-3">
+                  <button
+                    onClick={toggleDropdown}
+                    type="button"
                     className="cursor-pointer focus:ring-2 focus:ring-primary/20 rounded-full outline-none"
-                    aria-label="View account settings"
+                    aria-label="View user options menu"
+                    aria-expanded={isProfileDropdownOpen}
+                    aria-haspopup="menu"
                   >
                     <Avatar name={currentUser?.name || "User"} size="sm" />
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    type="button"
-                    className="p-2 text-text-secondary hover:text-error hover:bg-neutral-50 transition-all rounded-full cursor-pointer focus:ring-2 focus:ring-primary/20 outline-none"
-                    aria-label="Sign Out"
-                  >
-                    <LogOut className="w-5 h-5" />
                   </button>
+
+                  <AnimatePresence>
+                    {isProfileDropdownOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ duration: 0.18, ease: "easeOut" }}
+                        onClick={(e) => e.stopPropagation()}
+                        className="absolute right-0 top-12 w-48 bg-surface border border-border/40 rounded-2xl shadow-lg p-2.5 z-50 flex flex-col gap-0.5 select-none"
+                        role="menu"
+                        aria-label="User choices"
+                      >
+                        {/* Welcome label */}
+                        <div className="px-3 py-2 border-b border-border-light/80 mb-1.5 flex flex-col">
+                          <span className="text-[10px] font-black text-primary uppercase tracking-wider">
+                            {currentUser?.name || "Member"}
+                          </span>
+                          <span className="text-[8px] text-text-muted font-bold tracking-widest mt-0.5">
+                            {currentUser?.tier || "Connoisseur Club"}
+                          </span>
+                        </div>
+
+                        {[
+                          { path: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+                          { path: "/dashboard/profile", label: "My Profile", icon: UserIcon },
+                          { path: "/dashboard/orders", label: "Order History", icon: ShoppingBag },
+                          { path: "/dashboard/wishlist", label: "My Wishlist", icon: Heart },
+                          { path: "/dashboard/settings", label: "Settings", icon: Settings }
+                        ].map((item) => (
+                          <Link
+                            key={item.path}
+                            to={item.path}
+                            onClick={() => setIsProfileDropdownOpen(false)}
+                            className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-2xs font-extrabold text-text-secondary hover:text-primary hover:bg-neutral-50 transition-all"
+                            role="menuitem"
+                          >
+                            <item.icon className="w-3.5 h-3.5 text-text-muted group-hover:text-primary" />
+                            <span>{item.label}</span>
+                          </Link>
+                        ))}
+
+                        <hr className="border-t border-border-light my-1" />
+
+                        <button
+                          onClick={() => {
+                            setIsProfileDropdownOpen(false);
+                            handleLogout();
+                          }}
+                          type="button"
+                          className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-2xs font-extrabold text-text-secondary hover:text-error hover:bg-neutral-50 transition-all cursor-pointer w-full text-left"
+                          role="menuitem"
+                        >
+                          <LogOut className="w-3.5 h-3.5 text-text-muted" />
+                          <span>Sign Out</span>
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               ) : (
                 <div className="flex items-center gap-3">
