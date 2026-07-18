@@ -6,6 +6,8 @@ import { Spinner } from "../components/ui";
 import MainLayout from "../components/layout/MainLayout/MainLayout";
 import AuthLayout from "../layouts/AuthLayout";
 
+import ProtectedRoute from "../components/common/ProtectedRoute";
+
 // Pages
 import Home from "../pages/Home"; // Keep Home static for fast initial load
 const Menu = lazy(() => import("../pages/Menu"));
@@ -15,8 +17,11 @@ const CheckoutPage = lazy(() => import("../pages/CheckoutPage"));
 const OrderSuccessPage = lazy(() => import("../pages/OrderSuccessPage"));
 const About = lazy(() => import("../pages/About"));
 const Contact = lazy(() => import("../pages/Contact"));
-const Login = lazy(() => import("../pages/Login"));
-const Register = lazy(() => import("../pages/Register"));
+const LoginPage = lazy(() => import("../pages/LoginPage"));
+const RegisterPage = lazy(() => import("../pages/RegisterPage"));
+const ForgotPasswordPage = lazy(() => import("../pages/ForgotPasswordPage"));
+const ResetPasswordPage = lazy(() => import("../pages/ResetPasswordPage"));
+const EmailVerificationPage = lazy(() => import("../pages/EmailVerificationPage"));
 const Profile = lazy(() => import("../pages/Profile"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 
@@ -37,17 +42,24 @@ const AppRouter = () => {
             <Route path="/menu" element={<Menu />} />
             <Route path="/menu/:id" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/order-success" element={<OrderSuccessPage />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/profile" element={<Profile />} />
+
+            {/* Protected Routes */}
+            <Route element={<ProtectedRoute />}>
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/order-success" element={<OrderSuccessPage />} />
+              <Route path="/profile" element={<Profile />} />
+            </Route>
           </Route>
 
           {/* Authentication Routes using AuthLayout */}
           <Route element={<AuthLayout />}>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
+            <Route path="/verify-email" element={<EmailVerificationPage />} />
           </Route>
 
           {/* Catch-all Route under MainLayout */}

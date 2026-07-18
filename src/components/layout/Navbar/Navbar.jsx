@@ -1,16 +1,23 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Heart, ShoppingBag, Menu, Search, X } from "lucide-react";
-import { useAppSelector } from "../../../store/hooks";
+import { Heart, ShoppingBag, Menu, Search, X, LogOut } from "lucide-react";
+import { toast } from "react-hot-toast";
+import { useAppSelector, useAppDispatch } from "../../../store/hooks";
 import { selectCartTotalQuantity } from "../../../store/slices/cartSlice";
 import { selectWishlistItems } from "../../../store/slices/wishlistSlice";
+import { 
+  selectCurrentUser, 
+  selectIsAuthenticated, 
+  logout 
+} from "../../../store/slices/authSlice";
 import { navigationLinks } from "../../../constants/navigation";
 import { Avatar, Drawer, Modal } from "../../ui";
 import BrandLogo from "./BrandLogo";
 
 export const Navbar = () => {
   const location = useLocation();
+  const dispatch = useAppDispatch();
   
   // Scrolled shadow states
   const [isScrolled, setIsScrolled] = useState(false);
@@ -22,6 +29,13 @@ export const Navbar = () => {
   const cartQuantity = useAppSelector(selectCartTotalQuantity);
   const wishlistItems = useAppSelector(selectWishlistItems);
   const wishlistCount = wishlistItems.length;
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const currentUser = useAppSelector(selectCurrentUser);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    toast.success("Signed out successfully.");
+  };
 
   // Track scrolled height to toggle shadows
   useEffect(() => {
@@ -134,14 +148,41 @@ export const Navbar = () => {
                 )}
               </Link>
 
-              {/* Profile Avatar */}
-              <Link
-                to="/profile"
-                className="ml-1 cursor-pointer focus:ring-2 focus:ring-primary/20 rounded-full outline-none"
-                aria-label="View account settings"
-              >
-                <Avatar name="Aditya Mishra" size="sm" />
-              </Link>
+              {/* Profile Avatar / Auth CTAs */}
+              {isAuthenticated ? (
+                <div className="flex items-center gap-3">
+                  <Link
+                    to="/profile"
+                    className="cursor-pointer focus:ring-2 focus:ring-primary/20 rounded-full outline-none"
+                    aria-label="View account settings"
+                  >
+                    <Avatar name={currentUser?.name || "User"} size="sm" />
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    type="button"
+                    className="p-2 text-text-secondary hover:text-error hover:bg-neutral-50 transition-all rounded-full cursor-pointer focus:ring-2 focus:ring-primary/20 outline-none"
+                    aria-label="Sign Out"
+                  >
+                    <LogOut className="w-5 h-5" />
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-3">
+                  <Link
+                    to="/login"
+                    className="text-xs md:text-sm font-bold text-text-secondary hover:text-primary transition-colors py-2 px-1 focus:outline-none focus:text-primary"
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="text-xs md:text-sm font-bold text-white bg-primary hover:bg-primary-hover transition-colors py-2 px-4 rounded-full select-none focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  >
+                    Register
+                  </Link>
+                </div>
+              )}
             </div>
 
             {/* Mobile Actions Hamburger */}
@@ -255,24 +296,56 @@ export const Navbar = () => {
             ))}
           </div>
 
-          <div className="border-t border-border-light pt-6 flex flex-col gap-4 mt-auto">
+          <div className="border-t border-border-light pt-6 flex flex-col gap-3 mt-auto">
             <Link
               to="/profile"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 text-text-secondary hover:text-primary font-bold text-sm"
+              className="flex items-center gap-3 px-4 py-2.5 text-text-secondary hover:text-primary font-bold text-sm"
             >
               <Heart className="w-5 h-5" />
               <span>Wishlist ({wishlistCount})</span>
             </Link>
 
-            <Link
-              to="/profile"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 text-text-secondary hover:text-primary font-bold text-sm"
-            >
-              <Avatar name="Aditya Mishra" size="sm" />
-              <span>My Profile Settings</span>
-            </Link>
+            {isAuthenticated ? (
+              <>
+                <Link
+                  to="/profile"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-3 px-4 py-2.5 text-text-secondary hover:text-primary font-bold text-sm"
+                >
+                  <Avatar name={currentUser?.name || "User"} size="sm" />
+                  <span>My Profile Settings</span>
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    handleLogout();
+                  }}
+                  className="flex items-center gap-3 px-4 py-2.5 text-text-secondary hover:text-error font-bold text-sm cursor-pointer w-full text-left"
+                >
+                  <LogOut className="w-5 h-5" />
+                  <span>Sign Out</span>
+                </button>
+              </>
+            ) : (
+              <div className="flex flex-col gap-2.5 px-4 pt-2">
+                <Link
+                  to="/login"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full text-center py-3 border border-border text-text-secondary hover:text-primary rounded-full text-xs font-bold transition-all focus:ring-2 focus:ring-primary/20"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/register"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full text-center py-3 bg-primary text-white hover:bg-primary-hover rounded-full text-xs font-bold transition-all focus:ring-2 focus:ring-primary/20"
+                >
+                  Register
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </Drawer>

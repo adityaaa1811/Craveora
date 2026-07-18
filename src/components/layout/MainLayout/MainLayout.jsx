@@ -14,7 +14,10 @@ const titleMap = {
   "/order-success": "Order Success",
   "/about": "Our Brand Story",
   "/contact": "Concierge Contact",
-  "/profile": "My Account"
+  "/profile": "My Account",
+  "/forgot-password": "Recover Account",
+  "/reset-password": "Reset Password",
+  "/verify-email": "Account Verification"
 };
 
 export const MainLayout = () => {
