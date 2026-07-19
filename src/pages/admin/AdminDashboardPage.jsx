@@ -4,11 +4,7 @@ import {
   TrendingUp,
   DollarSign,
   ShoppingBag,
-  Clock,
-  CheckCircle2,
-  XCircle,
-  Users,
-  Award
+  Clock
 } from "lucide-react";
 
 const AdminDashboardPage = () => {

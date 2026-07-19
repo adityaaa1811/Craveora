@@ -5,9 +5,7 @@ import {
   Edit2,
   Trash2,
   Copy,
-  Check,
   Search,
-  Filter,
   Trash,
   CheckCircle,
   XCircle
@@ -382,7 +380,7 @@ const AdminProductsPage = () => {
                     className="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-amber-500"
                   >
                     {categories.map((c) => (
-                      <option key={c._id} value={p => c.name}>{c.name}</option>
+                      <option key={c._id} value={c.name}>{c.name}</option>
                     ))}
                   </select>
                 </div>

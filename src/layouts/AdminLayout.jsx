@@ -52,7 +52,11 @@ const AdminLayout = () => {
             <span className="text-xl font-bold tracking-wider text-amber-500 font-serif">Craveora</span>
             <span className="text-xs bg-slate-800 text-slate-400 px-2 py-0.5 rounded uppercase font-semibold">Admin</span>
           </Link>
-          <button className="lg:hidden text-slate-400 hover:text-slate-200" onClick={() => setSidebarOpen(false)}>
+          <button 
+            className="lg:hidden text-slate-400 hover:text-slate-200" 
+            onClick={() => setSidebarOpen(false)}
+            aria-label="Close sidebar"
+          >
             <X size={20} />
           </button>
         </div>
@@ -109,7 +113,11 @@ const AdminLayout = () => {
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top Header Navigation */}
         <header className="h-16 bg-slate-950 border-b border-slate-800 flex items-center justify-between px-6 sticky top-0 z-20">
-          <button className="lg:hidden text-slate-400 hover:text-slate-200" onClick={() => setSidebarOpen(true)}>
+          <button 
+            className="lg:hidden text-slate-400 hover:text-slate-200" 
+            onClick={() => setSidebarOpen(true)}
+            aria-label="Open sidebar"
+          >
             <Menu size={24} />
           </button>
 

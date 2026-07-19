@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import api from "../../services/api";
-import { Settings as SettingsIcon, Save } from "lucide-react";
+import { Save } from "lucide-react";
 
 const AdminSettingsPage = () => {
-  const [settings, setSettings] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
