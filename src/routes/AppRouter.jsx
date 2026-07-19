@@ -36,6 +36,18 @@ const SettingsPage = lazy(() => import("../pages/SettingsPage"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 const OffersPage = lazy(() => import("../pages/OffersPage"));
 
+// Admin Pages
+import AdminLayout from "../layouts/AdminLayout";
+const AdminDashboardPage = lazy(() => import("../pages/admin/AdminDashboardPage"));
+const AdminProductsPage = lazy(() => import("../pages/admin/AdminProductsPage"));
+const AdminCategoriesPage = lazy(() => import("../pages/admin/AdminCategoriesPage"));
+const AdminOrdersPage = lazy(() => import("../pages/admin/AdminOrdersPage"));
+const AdminUsersPage = lazy(() => import("../pages/admin/AdminUsersPage"));
+const AdminReviewsPage = lazy(() => import("../pages/admin/AdminReviewsPage"));
+const AdminCouponsPage = lazy(() => import("../pages/admin/AdminCouponsPage"));
+const AdminInventoryPage = lazy(() => import("../pages/admin/AdminInventoryPage"));
+const AdminSettingsPage = lazy(() => import("../pages/admin/AdminSettingsPage"));
+
 const AppRouter = () => {
   return (
     <BrowserRouter>
@@ -75,6 +87,22 @@ const AppRouter = () => {
                 <Route path="/dashboard/wishlist" element={<WishlistPage />} />
                 <Route path="/dashboard/settings" element={<SettingsPage />} />
               </Route>
+            </Route>
+          </Route>
+
+          {/* Admin Dashboard Routes */}
+          <Route element={<ProtectedRoute allowedRoles={["admin", "manager", "support"]} />}>
+            <Route element={<AdminLayout />}>
+              <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
+              <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+              <Route path="/admin/products" element={<AdminProductsPage />} />
+              <Route path="/admin/categories" element={<AdminCategoriesPage />} />
+              <Route path="/admin/orders" element={<AdminOrdersPage />} />
+              <Route path="/admin/users" element={<AdminUsersPage />} />
+              <Route path="/admin/reviews" element={<AdminReviewsPage />} />
+              <Route path="/admin/coupons" element={<AdminCouponsPage />} />
+              <Route path="/admin/inventory" element={<AdminInventoryPage />} />
+              <Route path="/admin/settings" element={<AdminSettingsPage />} />
             </Route>
           </Route>
 
