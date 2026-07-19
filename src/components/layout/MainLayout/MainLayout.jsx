@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import { Breadcrumb } from "../../ui";
 import { products } from "../../../features/menu/data/products";
+import RouteLoader from "../../common/RouteLoader";
 
 const titleMap = {
   "/": "Home",
@@ -32,7 +33,7 @@ export const MainLayout = () => {
 
   // Scroll to top and update page titles on location pathname updates
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: "instant" }); // change to instant to avoid jumpy transition scrolling
 
     let title = "Home";
     const path = location.pathname;
@@ -62,17 +63,19 @@ export const MainLayout = () => {
           </div>
         )}
         <div className="flex-grow">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={location.pathname}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.28, ease: "easeInOut" }}
-            >
-              <Outlet />
-            </motion.div>
-          </AnimatePresence>
+          <Suspense fallback={<RouteLoader />}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={location.pathname}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+              >
+                <Outlet />
+              </motion.div>
+            </AnimatePresence>
+          </Suspense>
         </div>
       </main>
       <Footer />

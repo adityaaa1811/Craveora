@@ -15,6 +15,7 @@ import {
 import { navigationLinks } from "../../../constants/navigation";
 import { Avatar, Drawer, Modal } from "../../ui";
 import BrandLogo from "./BrandLogo";
+import { preloadRoute } from "../../../routes/preloader";
 
 export const Navbar = () => {
   const location = useLocation();
@@ -148,6 +149,8 @@ export const Navbar = () => {
       <NavLink
         key={link.path}
         to={link.path}
+        onMouseEnter={() => preloadRoute(link.path)}
+        onFocus={() => preloadRoute(link.path)}
         className={({ isActive }) =>
           `relative py-2 text-xs md:text-sm font-bold tracking-wide transition-colors focus:outline-none focus:text-primary rounded-md px-1 select-none ${
             isActive ? "text-primary" : "text-text-secondary hover:text-primary"
@@ -604,6 +607,8 @@ export const Navbar = () => {
                 key={link.path}
                 to={link.path}
                 onClick={() => setIsMobileMenuOpen(false)}
+                onMouseEnter={() => preloadRoute(link.path)}
+                onFocus={() => preloadRoute(link.path)}
                 className={({ isActive }) =>
                   `flex items-center px-4 py-3 rounded-2xl text-base font-bold tracking-wide transition-all ${
                     isActive

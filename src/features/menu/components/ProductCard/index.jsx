@@ -10,6 +10,7 @@ import ProductImage from "../ProductImage";
 import ProductBadge from "../ProductBadge";
 import ProductRating from "../ProductRating";
 import ProductPrice from "../ProductPrice";
+import { preloadRoute } from "../../../../routes/preloader";
 
 export const ProductCard = ({ product }) => {
   const dispatch = useAppDispatch();
@@ -49,7 +50,12 @@ export const ProductCard = ({ product }) => {
     >
       {/* Product Image Link and Wishlist Overlay */}
       <div className="relative overflow-hidden aspect-video">
-        <Link to={`/menu/${id}`} className="block w-full h-full">
+        <Link 
+          to={`/menu/${id}`} 
+          className="block w-full h-full"
+          onMouseEnter={() => preloadRoute(`/menu/${id}`)}
+          onFocus={() => preloadRoute(`/menu/${id}`)}
+        >
           <ProductImage src={image} alt={title} />
         </Link>
         
@@ -77,7 +83,12 @@ export const ProductCard = ({ product }) => {
 
       {/* Details and Pricing Actions - split into siblings of Link */}
       <div className="flex-grow flex flex-col justify-between">
-        <Link to={`/menu/${id}`} className="p-4 md:p-5 flex flex-col gap-2 flex-grow hover:no-underline">
+        <Link 
+          to={`/menu/${id}`} 
+          className="p-4 md:p-5 flex flex-col gap-2 flex-grow hover:no-underline"
+          onMouseEnter={() => preloadRoute(`/menu/${id}`)}
+          onFocus={() => preloadRoute(`/menu/${id}`)}
+        >
           <div className="flex items-start justify-between gap-2">
             <h3 className="text-xs md:text-sm font-bold text-text-primary group-hover:text-primary transition-colors duration-300 leading-snug truncate w-full">
               {title}

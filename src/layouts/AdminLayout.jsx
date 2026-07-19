@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import React, { useState, Suspense } from "react";
+import { Link, NavLink, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { selectCurrentUser, logout } from "../store/slices/authSlice";
+import { motion, AnimatePresence } from "framer-motion";
+import RouteLoader from "../components/common/RouteLoader";
 import {
   LayoutDashboard,
   Utensils,
@@ -23,6 +25,7 @@ const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const user = useAppSelector(selectCurrentUser);
   const dispatch = useAppDispatch();
+  const location = useLocation();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -140,7 +143,19 @@ const AdminLayout = () => {
 
         {/* Nested Page Viewport */}
         <main className="flex-1 p-6 md:p-8 overflow-y-auto bg-slate-900">
-          <Outlet />
+          <Suspense fallback={<RouteLoader />}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={location.pathname}
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+              >
+                <Outlet />
+              </motion.div>
+            </AnimatePresence>
+          </Suspense>
         </main>
       </div>
     </div>

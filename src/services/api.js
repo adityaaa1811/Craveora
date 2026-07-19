@@ -10,7 +10,10 @@ const api = axios.create({
   withCredentials: true,
 });
 
-// Request interceptor to attach JWT token
+const cacheMap = new Map();
+const CACHE_TTL = 5000; // 5 seconds cache
+
+// Request interceptor to attach JWT token and handle caching
 api.interceptors.request.use(
   (config) => {
     try {
@@ -25,6 +28,24 @@ api.interceptors.request.use(
     } catch (error) {
       console.error("Failed to parse auth token in API client:", error);
     }
+
+    // In-memory caching for public GET requests to prevent duplicate mounting fetches
+    if (config.method === "get" && (config.url.includes("/products") || config.url.includes("/categories"))) {
+      const cacheKey = config.url + JSON.stringify(config.params || {});
+      const cached = cacheMap.get(cacheKey);
+      if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+        config.adapter = () => {
+          return Promise.resolve({
+            data: cached.data,
+            headers: {},
+            config,
+            status: 200,
+            statusText: "OK",
+          });
+        };
+      }
+    }
+
     return config;
   },
   (error) => {
@@ -32,9 +53,18 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor to handle token expiration/auth errors
+// Response interceptor to handle token expiration/auth errors and store cache
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    if (response.config.method === "get" && (response.config.url.includes("/products") || response.config.url.includes("/categories"))) {
+      const cacheKey = response.config.url + JSON.stringify(response.config.params || {});
+      cacheMap.set(cacheKey, {
+        data: response.data,
+        timestamp: Date.now(),
+      });
+    }
+    return response;
+  },
   async (error) => {
     const originalRequest = error.config;
     

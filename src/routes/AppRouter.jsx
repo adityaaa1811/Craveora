@@ -1,6 +1,8 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { Spinner } from "../components/ui";
+import LoadingScreen from "../components/common/LoadingScreen";
+import ScrollToTop from "../components/common/ScrollToTop";
+import ErrorBoundary from "../components/common/ErrorBoundary";
 
 // Layouts
 import MainLayout from "../components/layout/MainLayout/MainLayout";
@@ -51,17 +53,13 @@ const AdminSettingsPage = lazy(() => import("../pages/admin/AdminSettingsPage"))
 const AppRouter = () => {
   return (
     <BrowserRouter>
-      <Suspense
-        fallback={
-          <div className="min-h-screen w-full flex items-center justify-center bg-surface">
-            <Spinner variant="ring" size="lg" className="text-primary" />
-          </div>
-        }
-      >
-        <Routes>
-          {/* Main Application Routes using MainLayout */}
-          <Route element={<MainLayout />}>
-            <Route path="/" element={<Home />} />
+      <ScrollToTop />
+      <ErrorBoundary>
+        <Suspense fallback={<LoadingScreen />}>
+          <Routes>
+            {/* Main Application Routes using MainLayout */}
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<Home />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/menu/:id" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
@@ -121,6 +119,7 @@ const AppRouter = () => {
           </Route>
         </Routes>
       </Suspense>
+      </ErrorBoundary>
     </BrowserRouter>
   );
 };

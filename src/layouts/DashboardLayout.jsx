@@ -1,6 +1,7 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   LayoutDashboard, 
   User, 
@@ -14,6 +15,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { selectCurrentUser, logout } from "../store/slices/authSlice";
 import { Avatar, Card } from "../components/ui";
+import RouteLoader from "../components/common/RouteLoader";
 
 export const DashboardLayout = () => {
   const dispatch = useAppDispatch();
@@ -143,7 +145,19 @@ export const DashboardLayout = () => {
 
         {/* Dashboard Subpage Content */}
         <div className="lg:col-span-3 min-w-0 w-full min-h-[400px]">
-          <Outlet />
+          <Suspense fallback={<RouteLoader />}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={location.pathname}
+                initial={{ opacity: 0, x: 6 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -6 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+              >
+                <Outlet />
+              </motion.div>
+            </AnimatePresence>
+          </Suspense>
         </div>
       </div>
     </div>
